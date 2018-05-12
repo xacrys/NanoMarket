@@ -1,0 +1,32 @@
+<?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+function cargaControlador($controlador)
+{
+    $controlador = ucwords($controlador).'Controlador';
+    $strFileControlador = 'controlador/'.ucwords(CONTROLADOR_DEFECTO).'Controlador.php';
+    if(!is_file($strFileControlador)){
+        $strFileControlador = 'controlador/'.ucwords(CONTROLADOR_DEFECTO).'Controlador.php';
+    }
+    require_once $strFileControlador;
+    $controladorObj = new $controlador();
+    return $controladorObj;
+}
+
+function cargarAccion($controladorObj, $accion){
+    $accion = $accion;
+    $controladorObj->$accion();
+}
+
+function lanzarAccion($controladorObj){
+    if(isset($_GET["action"]) && method_exists($controladorObj, $_GET["action"])){
+        cargarAccion($controladorObj, $_GET["action"]);
+    }else{
+        cargarAccion($controladorObj, ACCION_DEFECTO);
+    }
+}
