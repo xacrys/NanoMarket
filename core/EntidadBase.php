@@ -9,9 +9,9 @@
 class EntidadBase{
   private $tabla, $db, $conectar;
 
-  public function contructor($tabla){
+  public function __construct($tabla){
       $this->tabla=(string)$tabla;
-      require_once './Conectar.php';
+      require_once 'Conectar.php';
       $this->conectar=new Conectar();
       $this->db= $this->conectar->conexion();
       
@@ -23,7 +23,8 @@ class EntidadBase{
       return $this->db;
   }
   public function getAll() {
-      $query = $this->db->query("SELECT * FROM $this->tabla ORDER BY id DESC");
+      $query = $this->db->query("SELECT * FROM $this->tabla");
+      
       while ($row = $query->fetch_object()) {
           $resultSet[]=$row;
       }

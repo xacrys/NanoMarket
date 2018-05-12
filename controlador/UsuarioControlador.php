@@ -8,15 +8,14 @@
 
 class UsuarioControlador extends ControladorBase{
     
-    public function construct() {
-        parent::construct();
+    public function __construct() {
+        parent::__construct();
     }
     
-    public function index() {
+    public function index() { 
         $usuario=new Usuario();
         $todosUsuarios=$usuario->getAll();
-        
-        $this->view("index", array("todosusuarios"=>$todosUsuarios,"Hola"=>"Hola Cris"));
+        $this->view("Usuario", array("todosusuarios"=>$todosUsuarios,"Hola"=>"Hola Cris"));
     }
     
     public function crear(){

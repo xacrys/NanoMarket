@@ -7,9 +7,11 @@
  */
 class Usuario extends EntidadBase{
     private $idusuario, $nombre, $password;
-    public function contructor($tabla) {
+    
+    
+    public function __construct() {
         $tabla="usuario";
-        parent::contructor($tabla);
+        parent::__construct($tabla);
     }
     public function getIdusuario() {
         return $this->idusuario;

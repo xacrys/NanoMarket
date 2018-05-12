@@ -7,10 +7,10 @@
  */
 
 class ControladorBase{
-    public function construct() {
-        require_once './EntidadBase.php';
-        require_once './ModeloBase.php';
-        foreach (glob("moidel/*.php") as $file) {
+    public function __construct() {
+        require_once 'EntidadBase.php';
+        require_once 'ModeloBase.php';
+        foreach (glob("modelo/*.php") as $file) {
             require_once $file;
         }
     }
@@ -21,10 +21,11 @@ class ControladorBase{
         }
         require_once 'core/AyudaVistas.php';
         $helper=new AyudaVistas();
-        require_once 'vista'.$vista.'View.php';
+        
+        require_once 'vista/'.$vista.'Vista.php';
     }
     
     public function redirect($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO) {
-        header("Location:index.php?controller=".$controlador."&action=".$accion);
+        header("Location:index.php?controlador=".$controlador."&accion=".$accion);
     }
 }

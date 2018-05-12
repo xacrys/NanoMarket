@@ -9,7 +9,7 @@
 class UsuarioModelo extends ModeloBase{
     private $tabla;
     
-    public function construct($tabla) {
+    public function __construct($tabla) {
         $this->tabla="usuario";
         parent::construct($this->tabla);
     }

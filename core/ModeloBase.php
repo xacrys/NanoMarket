@@ -10,9 +10,9 @@ class ModeloBase extends EntidadBase {
 
     private $tabla;
 
-    public function construct($tabla) {
-        $this->tabla = (string) $tabla;
-        parent::contructor($tabla);
+    public function __construct($tabla) {
+        $this->tabla =(string)$tabla;
+        parent::__construct($tabla);
     }
 
     public function ejecutarSql($query) {
