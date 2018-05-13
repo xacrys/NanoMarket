@@ -83,7 +83,7 @@ class ClienteModelo extends ModeloBase {
     // Buscar un Cliente Activo según idcliente
     public function find() {        
         $sql = "SELECT * from cliente where idcliente = '$this->idcliente' and activo=1;";
-        $resultSetCliente = $this->ejecutarSql($sql);
+        $resultSetCliente = $this->ejecutarSql($sql);       
         return $resultSetCliente;
     }
 

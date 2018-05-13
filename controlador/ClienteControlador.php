@@ -61,7 +61,7 @@ class ClienteControlador extends ControladorBase{
             $cliente = new ClienteModelo();        
             $cliente->set_idcliente($idcliente);
             $unCliente = $cliente->find();
-
+            
             //Cargamos la vista Cliente y enviar resultados
             $this->view("Cliente", array("unCliente"=>$unCliente));
         }

@@ -10,7 +10,7 @@ $direccion = '';
 $tipo_cliente = '';
 
 //Validar si existe unCliente desde el ClienteControlador
-if(isset($unCliente) && count($unCliente)>=1) {
+if(isset($unCliente) && isset($unCliente[0]->idcliente) && count($unCliente)>=1) {
     $idcliente = $unCliente[0]->idcliente;
     $nombre = $unCliente[0]->nombre;
     $apellido = $unCliente[0]->apellido;
