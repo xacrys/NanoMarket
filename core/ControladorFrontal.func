@@ -7,7 +7,7 @@
  */
 
 function cargarControlador($controlador)
-{
+{    
     $controlador = ucwords($controlador).'Controlador';
     $strFileControlador = './controlador/'.$controlador.'.php';
     if(!is_file($strFileControlador)){
@@ -23,9 +23,9 @@ function cargarAccion($controladorObj, $accion){
     $controladorObj->$accion();
 }
 
-function lanzarAccion($controladorObj){
-    if(isset($_GET["action"]) && method_exists($controladorObj, $_GET["action"])){
-        cargarAccion($controladorObj, $_GET["action"]);
+function lanzarAccion($controladorObj){    
+    if(isset($_GET["accion"]) && method_exists($controladorObj, $_GET["accion"])){        
+        cargarAccion($controladorObj, $_GET["accion"]);
     }else{
         cargarAccion($controladorObj, ACCION_DEFECTO);
     }

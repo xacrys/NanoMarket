@@ -73,16 +73,16 @@
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <p><a href="#">Link</a></p>
+                    <p><a href="<?php echo $helper->url("Cliente", "index"); ?>">Nuevo Cliente</a></p>
                     <p><a href="#">Link</a></p>
                     <p><a href="#">Link</a></p>
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <h1>Welcome</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <hr>
+                    <hr>                    
                     <form action="<?php echo $helper->url("usuario", "crear"); ?>" method="post" class="col-lg-5">
-                        <h3>Anadir Usuario</h3>
+                        <h3>Anadir Usuario</h3>                        
                         <hr/>
                         Nombre:<input type="text" name="nombre" class="form-control"/>
                         Password:<input type="text" name="password" class="form-control"/>
