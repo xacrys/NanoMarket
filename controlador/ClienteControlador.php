@@ -6,7 +6,7 @@ class ClienteControlador extends ControladorBase{
     }
     
     public function index() {        
-        $this->view("Cliente", array("unCliente"=>""));
+        $this->view("Cliente", array("Cliente"=>""));
     }
     
     public function crear(){
