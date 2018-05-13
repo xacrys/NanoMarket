@@ -117,7 +117,8 @@
                                     <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="form-control" class="btn">Sign in</button>
+                                   <input class="btn btn-primary" type="submit" value="Guardar">
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">
                                 </div>
 
 

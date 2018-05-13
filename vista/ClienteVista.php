@@ -1,27 +1,3 @@
-<?php
-
-$idcliente = '';
-$nombre = '';
-$apellido = '';
-$telefono = '';
-$celular = '';
-$email = '';
-$direccion = '';
-$tipo_cliente = '';
-
-//Validar si existe unCliente desde el ClienteControlador
-if(isset($unCliente) && count($unCliente)>=1) {    
-    $idcliente = $unCliente[0]->idcliente;
-    $nombre = $unCliente[0]->nombre;
-    $apellido = $unCliente[0]->apellido;
-    $telefono = $unCliente[0]->telefono;
-    $celular = $unCliente[0]->celular;
-    $email = $unCliente[0]->email;
-    $direccion = $unCliente[0]->direccion;
-    $tipo_cliente = $unCliente[0]->tipo_cliente;
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,17 +5,18 @@ if(isset($unCliente) && count($unCliente)>=1) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
-        <script language="javascript" type="text/javascript">
-            // Función de JavaScript para enviar el formulario a la página indicada.
-            function saltar(pagina){                
-                document.ClienteVista.action=pagina;
-                document.ClienteVista.submit();
-            }
-        </script>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            function isNumericKey(evt)
+            {
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode != 46 && charCode > 31
+                        && (charCode < 48 || charCode > 57))
+                    return true;
+                return false;
+            }
+        </script>
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
@@ -78,30 +55,103 @@ if(isset($unCliente) && count($unCliente)>=1) {
         </style>
     </head>
     <body>
-        <form action="" method="post" class="col-lg-5" name="ClienteVista" id="ClienteVista">
-            <h3>Gestión de Clientes</h3>
-            Cédula:<input type="text" name="idcliente" value="<?php print($idcliente); ?>" class="form-control"/>
-            Nombre:<input type="text" name="nombre" value="<?php print($nombre); ?>" class="form-control"/>
-            Apellido:<input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control"/>
-            Teléfono:<input type="text" name="telefono" value="<?php print($telefono); ?>" class="form-control"/>
-            Teléfono Celular:<input type="text" name="celular" value="<?php print($celular); ?>" class="form-control"/>
-            Correo:<input type="text" name="email" value="<?php print($email); ?>" class="form-control"/>
-            Tipo:<select name="tipo_cliente" class="form-control">
-            <?php
-            for ($i=1;$i<=2;$i++){                 
-                if ($tipo_cliente == 'Cliente_'.$i)
-                    echo "<OPTION VALUE='Cliente_".$i."' selected='selected'>Cliente_".$i."</OPTION>";                    
-                else
-                    echo "<OPTION VALUE='Cliente_".$i."'>Cliente_".$i."</OPTION>";                    
-            }
-            ?>
-            </select>
-            Dirección:<input type="text" name="direccion" value="<?php print($direccion); ?>" class="form-control"/>
-            <br>            
-            <input type="submit" value="Registrar" onclick="saltar('<?php echo $helper->url("Cliente", "crear"); ?>');" class="btn btn-success"/>
-            <input type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Cliente", "buscar"); ?>');" class="btn btn-success"/>
-            <input type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Cliente", "actualizar"); ?>');" class="btn btn-success"/>
-        </form>    
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="../Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Inicio</a></li>
+                        <li><a href="#">Clientes</a></li>
+                        <li><a href="#">Productos</a></li>
+                        <li><a href="#">Ventas</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid text-center">    
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                </div>
+                <div class="col-sm-8 text-center"> 
+                    <h1>Ingreso de Clientes</h1>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Datos de Productos</div>
+                        <div class="panel-body">
+                            <form>
+
+                                <div class="form-group">
+                                    <label  for="inputCedula">Cedula:</label>                                    
+                                    <input type="text" class="form-control" id="inputCedula" placeholder="Numero de Cedula">                                                             
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputApellidos">Apellidos</label>
+                                    <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">                                        
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputNombres">Nombres</label>
+                                    <input type="text" class="form-control" id="inputNombres" placeholder="Nombres">                                        
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputTelefono">Telefono</label>                                    
+                                    <input id="inputTelefono" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Telefono">                                                                  
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputCelular">Celular</label>                                    
+                                    <input id="inputCelular" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Celular">                                                                  
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputCorreo">Correo</label>                                    
+                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="email" placeholder="Correo electronico">
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputDireccion">Direccion</label>                                    
+                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Direccion">
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectTipo">Tipo</label>
+                                    <select class="form-control" id="selectCategoria">
+                                        <option>--Seleccione Tipo--</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>  
+                                <div class="form-group">
+                                    <input class="btn btn-primary" type="submit" value="Guardar">
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>                
+
+                </div>
+                <div class="col-sm-2 sidenav">
+
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="container-fluid text-center">
+            <p>&copy; 2018 Dominguez G., Tintin C., Mieles S.</p>
+        </footer>
+
     </body>
 </html>
 
