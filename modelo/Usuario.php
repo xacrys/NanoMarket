@@ -8,8 +8,7 @@
 class Usuario extends EntidadBase{
     private $idusuario, $nombre, $password;
     
-    
-    public function __construct() {
+        public function __construct() {
         $tabla="usuario";
         parent::__construct($tabla);
     }
