@@ -69,7 +69,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="#">Clientes</a></li>
+                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
                         <li><a href="#">Productos</a></li>
                         <li><a href="#">Ventas</a></li>
                     </ul>
