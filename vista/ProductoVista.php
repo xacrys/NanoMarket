@@ -85,52 +85,39 @@
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center"> 
-                    <h1>Ingreso de Clientes</h1>
+                    <h1>Ingreso de Productos</h1>
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos de Productos</div>
                         <div class="panel-body">
                             <form>
-
                                 <div class="form-group">
-                                    <label  for="inputCedula">Cedula:</label>                                    
-                                    <input type="text" class="form-control" id="inputCedula" placeholder="Numero de Cedula">                                                             
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputApellidos">Apellidos</label>
-                                    <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">                                        
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputNombres">Nombres</label>
-                                    <input type="text" class="form-control" id="inputNombres" placeholder="Nombres">                                        
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputTelefono">Telefono</label>                                    
-                                    <input id="inputTelefono" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Telefono">                                                                  
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputCelular">Celular</label>                                    
-                                    <input id="inputCelular" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Celular">                                                                  
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputCorreo">Correo</label>                                    
-                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="email" placeholder="Correo electronico">
-                                </div>
-                                <div class="form-group">
-                                    <label  for="inputDireccion">Direccion</label>                                    
-                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Direccion">
-                                </div>
-                                <div class="form-group">
-                                    <label for="selectTipo">Tipo</label>
+                                    <label for="selectCategoria">Categoria</label>
                                     <select class="form-control" id="selectCategoria">
-                                        <option>--Seleccione Tipo--</option>
+                                        <option>--Seleccione Categoria--</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
                                         <option>5</option>
                                     </select>
-                                </div>  
+                                </div>                            
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Guardar">
+                                    <label  for="inputCodigo">Codigo</label>                                    
+                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto">                                                             
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputDetalle">Detalle</label>
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto">                                        
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputPrecio">Precio</label>                                    
+                                    <input id="inputPrecio" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Precio">                                                                  
+                                </div>
+                                <div class="form-group">
+                                    <label  for="inputStock">Stock</label>                                    
+                                    <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
+                                </div>
+                                <div class="form-group">
+                                   <input class="btn btn-primary" type="submit" value="Guardar">
                                     <input class="btn btn-primary" type="reset" value="Nuevo">
                                 </div>
 
