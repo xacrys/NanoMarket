@@ -1,3 +1,29 @@
+<?php
+
+$idcliente = '';
+$nombre = '';
+$apellido = '';
+$telefono = '';
+$celular = '';
+$email = '';
+$direccion = '';
+$tipo_cliente = '';
+
+//Validar si existe unCliente desde el ClienteControlador
+if(isset($unCliente) && count($unCliente)>=1) {
+    $idcliente = $unCliente[0]->idcliente;
+    $nombre = $unCliente[0]->nombre;
+    $apellido = $unCliente[0]->apellido;
+    $telefono = $unCliente[0]->telefono;
+    $celular = $unCliente[0]->celular;
+    $email = $unCliente[0]->email;
+    $direccion = $unCliente[0]->direccion;
+    $tipo_cliente = $unCliente[0]->tipo_cliente;
+    unset($unCliente);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,15 +33,13 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-            function isNumericKey(evt)
-            {
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode != 46 && charCode > 31
-                        && (charCode < 48 || charCode > 57))
-                    return true;
-                return false;
-            }
+        <script src="./recursos/validaciones.js"></script>
+        <script>            
+            // Función de JavaScript para enviar el formulario a la página indicada.
+            function saltar(pagina,accion){                
+                    document.ClienteVista.action=pagina;
+                    document.ClienteVista.submit();
+            }            
         </script>
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
@@ -85,56 +109,60 @@
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center"> 
-                    <h1>Ingreso de Clientes</h1>
+                    <h1>Gestión de Clientes</h1>
                     <div class="panel panel-default">
-                        <div class="panel-heading">Datos de Productos</div>
-                        <div class="panel-body">
-                            <form>
+                        <div class="panel-heading">Datos de Cliente</div>
+                        <div class="panel-body">                            
+                            <form action="" method="post" name="ClienteVista" id="ClienteVista">
 
                                 <div class="form-group">
-                                    <label  for="inputCedula">Cedula:</label>                                    
-                                    <input type="text" class="form-control" id="inputCedula" placeholder="Numero de Cedula">                                                             
+                                    <label  for="nombre">Cédula: </label>                                    
+                                    <input type="text" name="idcliente" value="<?php print($idcliente); ?>" id="idcliente" placeholder="Número de Cédula" maxlength="10" onkeypress="return isNumericKey(event)" required>                                                                                                 
+                                    <input id="buttonB" type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Cliente", "buscar"); ?>','buscar');" class="btn btn-primary"/>
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputApellidos">Apellidos</label>
-                                    <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos">                                        
+                                    <label  for="nombre">Nombres</label>
+                                    <input type="text" name="nombre" value="<?php print($nombre); ?>" class="form-control" id="nombre" placeholder="Nombres">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputNombres">Nombres</label>
-                                    <input type="text" class="form-control" id="inputNombres" placeholder="Nombres">                                        
+                                    <label  for="apellido">Apellidos</label>
+                                    <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" placeholder="Apellidos">                                        
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputTelefono">Telefono</label>                                    
-                                    <input id="inputTelefono" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Telefono">                                                                  
+                                    <label  for="telefono">Telefono</label>                                    
+                                    <input type="text" name="telefono" value="<?php print($telefono); ?>" class="form-control" id="telefono" placeholder="Telefono" onkeypress="return isNumericKey(event)">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputCelular">Celular</label>                                    
-                                    <input id="inputCelular" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Celular">                                                                  
+                                    <label  for="celular">Celular</label>                                    
+                                    <input type="text" name="celular" value="<?php print($celular); ?>" class="form-control" id="celular" placeholder="Celular" onkeypress="return isNumericKey(event)">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputCorreo">Correo</label>                                    
-                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="email" placeholder="Correo electronico">
+                                    <label  for="email">Correo</label>                                    
+                                    <input type="email" name="email" value="<?php print($email); ?>" class="form-control" id="email" placeholder="Correo electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputDireccion">Direccion</label>                                    
-                                    <input id="inputCorreo" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Direccion">
+                                    <label  for="direccion">Direccion</label>                                    
+                                    <input type="text" name="direccion" value="<?php print($direccion); ?>" class="form-control" id="direccion" placeholder="Direccion">
                                 </div>
                                 <div class="form-group">
-                                    <label for="selectTipo">Tipo</label>
-                                    <select class="form-control" id="selectCategoria">
-                                        <option>--Seleccione Tipo--</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
+                                    <label for="tipo_cliente">Tipo</label>
+                                    <select name="tipo_cliente" class="form-control" id="tipo_cliente">
+                                        <<OPTION VALUE='0'>--Seleccione Tipo--</OPTION>
+                                        <?php
+                                        for ($i=1;$i<=3;$i++){                 
+                                            if ($tipo_cliente == $i)
+                                                echo "<OPTION VALUE='".$i."' selected='selected'>".$i."</OPTION>";                    
+                                            else
+                                                echo "<OPTION VALUE='".$i."'>".$i."</OPTION>";                    
+                                        }
+                                        ?>
+                                    </select>                                   
                                 </div>  
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Guardar">
-                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">                                    
+                                    <input type="submit" value="Registrar" onclick="saltar('<?php echo $helper->url("Cliente", "crear"); ?>');" class="btn btn-success"/>                                    
+                                    <input type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Cliente", "actualizar"); ?>');" class="btn btn-success"/>                                    
                                 </div>
-
-
                             </form>
 
                         </div>
@@ -148,9 +176,9 @@
             </div>
         </div>
 
-        <footer class="container-fluid text-center">
+        <!-- <footer class="container-fluid text-center">
             <p>&copy; 2018 Dominguez G., Tintin C., Mieles S.</p>
-        </footer>
+        </footer> -->
 
     </body>
 </html>

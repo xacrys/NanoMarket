@@ -5,10 +5,12 @@ class ClienteControlador extends ControladorBase{
         parent::__construct();
     }
     
+    // acción por default
     public function index() {        
         $this->view("Cliente", array("Cliente"=>""));
     }
     
+    // Crear nuevo Cliente
     public function crear(){
         
         if(isset($_POST["idcliente"])){
@@ -40,6 +42,7 @@ class ClienteControlador extends ControladorBase{
         $this->redirect("Cliente","index");
     }
     
+    // Eliminar Cliente
     public function borrar(){
         if(isset($_POST["idcliente"])){
             $idcliente=$_POST["idcliente"];            
@@ -49,10 +52,12 @@ class ClienteControlador extends ControladorBase{
         }
     }
 
+    // Buscar Cliente
     public function buscar(){
         if(isset($_POST["idcliente"])){
             $idcliente = $_POST["idcliente"];
 
+            //set new Cliente
             $cliente = new ClienteModelo();        
             $cliente->set_idcliente($idcliente);
             $unCliente = $cliente->find();
@@ -62,6 +67,7 @@ class ClienteControlador extends ControladorBase{
         }
     }
 
+    // Modificar Cliente
     public function actualizar(){
         if(isset($_POST["idcliente"])){
             $idcliente = $_POST["idcliente"];
