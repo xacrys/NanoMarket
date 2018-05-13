@@ -73,7 +73,7 @@
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <p><a href="<?php redirect()?>">Nuevo Cliente</a></p>
+                    <p><a href="<?php echo $helper->url("Cliente", "index"); ?>">Gestión de Clientes</a></p>
                     <p><a href="#">Link</a></p>
                     <p><a href="#">Link</a></p>
                 </div>
