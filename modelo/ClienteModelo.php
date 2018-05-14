@@ -99,15 +99,17 @@ class ClienteModelo extends ModeloBase {
                     '".$this->email."',
                     '".$this->direccion."',
                     '".$this->tipo_cliente."');";      
-        $this->db()->query($sql);            
+        $save = $this->db()->query($sql);
+        return $save;
     }
 
     // Modificar / Actualizar un cliente 
     public function updateCliente() {
         $sql = "UPDATE cliente set nombre='$this->nombre',apellido='$this->apellido',telefono='$this->telefono',celular='$this->celular',email='$this->email', 
                 direccion='$this->direccion',tipo_cliente='$this->tipo_cliente',valor_credito='$this->valor_credito' 
-                where idcliente = '$this->idcliente';";
-        $this->db()->query($sql);
+                where idcliente = '$this->idcliente';";        
+        $update = $this->db()->query($sql);
+        return $update;
     }
 
     // Eliminar / Desactivar un cliente 

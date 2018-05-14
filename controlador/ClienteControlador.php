@@ -1,13 +1,19 @@
 <?php
 class ClienteControlador extends ControladorBase{
     
+    // Variables para determinar la accion a realizar por el controlador y el resultado
+    private $accionC;
+    private $resultadoC;
+
     public function __construct() {
         parent::__construct();
+        $this->accionC = '';
+        $this->resultadoC = false;
     }
     
     // acción por default
-    public function index() {        
-        $this->view("Cliente", array("Cliente"=>""));
+    public function index() {
+        $this->view("Cliente", array("ninguo"=>"ninguno"));
     }
     
     // Crear nuevo Cliente
@@ -35,11 +41,14 @@ class ClienteControlador extends ControladorBase{
             $cliente->set_direccion($direccion);
             $cliente->set_tipo_cliente($tipo_cliente);            
             
+            $this->accionC = "crear";
             $save = $cliente->addCliente();
-            
+            if ($save) {
+                $this->resultadoC = true;
+            }            
         }
         
-        $this->redirect("Cliente","index");
+        $this->view("Cliente", array("accionC"=>$this->accionC, "resultadoC"=>$this->resultadoC));
     }
     
     // Eliminar Cliente
@@ -60,15 +69,22 @@ class ClienteControlador extends ControladorBase{
             //set new Cliente
             $cliente = new ClienteModelo();        
             $cliente->set_idcliente($idcliente);
-            $unCliente = $cliente->find();
+            $unCliente = $cliente->find();            
             
+            $this->accionC = "buscar";
+
+            //Si existen resultados
+            if(isset($unCliente) && isset($unCliente[0]->idcliente) && count($unCliente)>=1) {
+                $this->resultadoC = true;
+            }
+
             //Cargamos la vista Cliente y enviar resultados
-            $this->view("Cliente", array("unCliente"=>$unCliente));
+            $this->view("Cliente", array("unCliente"=>$unCliente, "accionC"=>$this->accionC, "resultadoC"=>$this->resultadoC));
         }
     }
 
     // Modificar Cliente
-    public function actualizar(){
+    public function actualizar(){        
         if(isset($_POST["idcliente"])){
             $idcliente = $_POST["idcliente"];
             $nombre = $_POST["nombre"];
@@ -90,11 +106,15 @@ class ClienteControlador extends ControladorBase{
             $cliente->set_direccion($direccion);
             $cliente->set_tipo_cliente($tipo_cliente);
 
-            $cliente->updateCliente();
+            $this->accionC = "actualizar";
+            $update = $cliente->updateCliente();            
             $unCliente = $cliente->find();
+            if ($update) {
+                $this->resultadoC = true;
+            }
 
-            //Cargamos la vista Cliente y enviar resultados
-            $this->view("Cliente", array("unCliente"=>$unCliente));
+            //Cargamos la vista Cliente y enviar resultados            
+            $this->view("Cliente", array("unCliente"=>$unCliente, "accionC"=>$this->accionC, "resultadoC"=>$this->resultadoC));
         }
     }
 
