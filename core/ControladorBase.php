@@ -16,6 +16,7 @@ class ControladorBase{
     }
     
     public function view($vista,$datos) {
+       
         foreach ($datos as $id_assoc => $valor) {
             ${$id_assoc}=$valor;
         }
