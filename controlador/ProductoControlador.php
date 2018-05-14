@@ -8,8 +8,9 @@ class ProductoControlador extends ControladorBase {
 
     // acción por default
     public function index(){
-        echo "si entra";
-        $this->view("Producto", array("Producto" => ""));
+        $categoriaModelo= new CategoriaModelo();
+        $todosCategorias=$categoriaModelo->obtenerCategoria();
+        $this->view("Producto", array("todasCategorias" => $todosCategorias));
     }
 
     // Crear nuevo Cliente

@@ -1,3 +1,19 @@
+<?php
+
+$categorias = ''; //Buscar, Crear, Modificar
+// Estos resultados vienen desde el Controlador
+if(isset($todosCategorias)) {
+    $categorias = $todosCategorias;
+    print_r($categorias);
+}
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
