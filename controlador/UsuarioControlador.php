@@ -8,6 +8,8 @@
 
 class UsuarioControlador extends ControladorBase{
     
+    
+    
     public function __construct() {
         parent::__construct();
     }

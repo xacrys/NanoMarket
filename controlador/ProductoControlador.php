@@ -2,15 +2,21 @@
 
 class ProductoControlador extends ControladorBase {
 
+    private $listaCategorias;
+    
+    
     public function __construct() {
+        $this->listaCategorias = '';
         parent::__construct();
     }
 
     // acción por default
     public function index(){
+        
+        
         $categoriaModelo= new CategoriaModelo();
-        $todosCategorias=$categoriaModelo->obtenerCategoria();
-        $this->view("Producto", array("todasCategorias" => $todosCategorias));
+        $this->listaCategorias=$categoriaModelo->obtenerCategoria();
+        $this->view("Producto", array("todasCategorias" => $this->listaCategorias));
     }
 
     // Crear nuevo Cliente

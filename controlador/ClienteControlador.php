@@ -49,6 +49,7 @@ class ClienteControlador extends ControladorBase{
         }
         
         $this->view("Cliente", array("accionC"=>$this->accionC, "resultadoC"=>$this->resultadoC));
+        
     }
     
     // Eliminar Cliente
