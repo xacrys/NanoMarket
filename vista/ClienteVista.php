@@ -105,13 +105,13 @@ if (($accion == 'buscar' || $accion == 'actualizar') && $resultado) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
+                    <a class="navbar-brand" href="#"><img src="Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                    <ul class="nav navbar-nav">
                        
-                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
-                        <li class="active"><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
+                        <li class="active"><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
+                        <li ><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
                         <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
