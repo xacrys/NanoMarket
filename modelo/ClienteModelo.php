@@ -108,7 +108,14 @@ class ClienteModelo extends ModeloBase {
         $sql = "UPDATE cliente set nombre='$this->nombre',apellido='$this->apellido',telefono='$this->telefono',celular='$this->celular',email='$this->email', 
                 direccion='$this->direccion',tipo_cliente='$this->tipo_cliente',valor_credito='$this->valor_credito' 
                 where idcliente = '$this->idcliente';";        
-        $update = $this->db()->query($sql);
+        $this->db()->query($sql);
+
+        //Obtiene el número de filas afectadas en la última operación MySQL
+        if ($this->db()->affected_rows > 0) {
+            $update = true;
+        } else {
+            $update = false;
+        }
         return $update;
     }
 
