@@ -1,11 +1,12 @@
 <?php
-$categorias = ''; //Buscar, Crear, Modificar
+$categorias = ''; 
+$producto = '';//Buscar, Crear, Modificar
 // Estos resultados vienen desde el Controlador
-
-
 if (isset($listaCategorias)) {
     $categorias = $listaCategorias;
-    print_r($categorias);
+}
+if (isset($nuevoProducto)) {
+    $producto = $nuevoProducto;
 }
 ?>
 
@@ -110,7 +111,7 @@ if (isset($listaCategorias)) {
                                         <option>--Seleccione Categoria--</option>
                                         <?php                                           
                                             foreach ($categorias as $cat) {
-                                                     echo '<option>'.$cat->nombre.'</option>';
+                                                     echo '<option value="'.$cat->idcategoria.'">'.$cat->nombre.'</option>';
                                             }
                                          ?>
                                     </select>
