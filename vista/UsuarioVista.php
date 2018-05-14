@@ -58,11 +58,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Clientes</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Ventas</a></li>
+                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>                   
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -80,7 +76,7 @@
                     <h1>Login</h1>
 
                     <form action="<?php echo $helper->url("usuario", "crear"); ?>" method="post">
-                        <h3>Usuario</h3>                        
+                                            
                         <hr/>
                         <div class="form-group">
                             <label  for="inputNombre">Nombre</label>                                    
