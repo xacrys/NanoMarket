@@ -68,13 +68,13 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                       
+
                         <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
-                        <li class="active"><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
-                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
+                        <li><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
+                        <li class="active"><a href="#">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,41 +85,64 @@
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center"> 
-                    <h1>Registro de Producto</h1>
+                    <h1>Registro de Venta</h1>
                     <div class="panel panel-default">
-                        <div class="panel-heading">Datos del Producto</div>
+                        <div class="panel-heading">Datos del Cliente</div>
                         <div class="panel-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="selectCategoria">Categoria</label>
-                                    <select class="form-control" id="selectCategoria">
-                                        <option>--Seleccione Categoria--</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
+                                    <label for="inputCedula">Cedula del Cliente</label>
+                                    <input type="text" class="form-control" id="inputCedula" placeholder="Cedula del Cliente"> 
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">
                                 </div>                            
                                 <div class="form-group">
-                                    <label  for="inputCodigo">Codigo</label>                                    
-                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto">                                                             
+                                    <label  for="inputNombre">Nombre</label>                                    
+                                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del Cliente">                                                             
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto">                                        
+                                    <label  for="inputNombre">Apellido</label>                                    
+                                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del Cliente">                                                             
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Precio">                                                                  
+                                    <label for="selectTipo">Tipo de Pago</label>
+                                    <select class="form-control" id="selectTipo">
+                                        <option>--Seleccione Tipo-</option>
+                                        <option>Credito</option>
+                                        <option>Contado</option>
+                                    </select>
+                                </div>                            
+                                <h3>Detalle de la venta</h3>
+                                <div class="form-group">
+                                    <label for="inputProducto">Producto</label>
+                                    <select class="form-control" id="selectTipo">
+                                        <option>--Seleccione Producto-</option>
+                                        <option>Producto1</option>
+                                        <option>Producto2</option>
+                                    </select>
+                                    <input class="btn btn-primary" type="submit" value="Agregar">
+                                </div>  
+                                <div>
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Precio Unitario</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>John</td>
+                                                <td>Doe</td>
+                                                <td>john@example.com</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="form-group">
-                                    <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
-                                </div>
-                                <div class="form-group">
-                                     <input class="btn btn-primary" type="reset" value="Nuevo">
-                                   <input class="btn btn-success" type="submit" value="Registar">
-                                   
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                    <input class="btn btn-success" type="submit" value="Registar">
+
                                 </div>
                             </form>
 
