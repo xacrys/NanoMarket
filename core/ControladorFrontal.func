@@ -10,6 +10,7 @@ function cargarControlador($controlador)
 {    
     $controlador = ucwords($controlador).'Controlador';
     $strFileControlador = './controlador/'.$controlador.'.php';
+    
     if(!is_file($strFileControlador)){
         $strFileControlador = 'controlador/'.ucwords(CONTROLADOR_DEFECTO).'Controlador.php';
     }

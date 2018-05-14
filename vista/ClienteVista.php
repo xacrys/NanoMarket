@@ -88,17 +88,17 @@ if(isset($unCliente) && isset($unCliente[0]->idcliente) && count($unCliente)>=1)
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
+                    <a class="navbar-brand" href="#"><img src="Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="#">Clientes</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Ventas</a></li>
+                        
+                        <li class="active"><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
+                        <li><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
+                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -114,7 +114,6 @@ if(isset($unCliente) && isset($unCliente[0]->idcliente) && count($unCliente)>=1)
                         <div class="panel-heading">Datos de Cliente</div>
                         <div class="panel-body">                            
                             <form action="" method="post" name="ClienteVista" id="ClienteVista">
-
                                 <div class="form-group">
                                     <label  for="nombre">Cédula: </label>                                    
                                     <input type="text" name="idcliente" value="<?php print($idcliente); ?>" id="idcliente" placeholder="Número de Cédula" maxlength="10" onkeypress="return isNumericKey(event)" required>                                                                                                 

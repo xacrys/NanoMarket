@@ -54,14 +54,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="#">Logo</a>
+                    <a class="navbar-brand" href="#"><img src="Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>                   
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -73,36 +70,35 @@
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-                    <p><a href="<?php echo $helper->url("Cliente", "index"); ?>">Gestión de Clientes</a></p>
-                    <p><a href="#">Link</a></p>
-                    <p><a href="#">Link</a></p>
-                </div>
-                <div class="col-sm-8 text-left"> 
-                    <h1>Welcome</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <hr>                    
-                    <form action="<?php echo $helper->url("usuario", "crear"); ?>" method="post" class="col-lg-5">
-                        <h3>Anadir Usuario</h3>                        
-                        <hr/>
-                        Nombre:<input type="text" name="nombre" class="form-control"/>
-                        Password:<input type="text" name="password" class="form-control"/>
-                        <input type="submit" value="value" class="btn btn-success"/>;
 
+                </div>
+                <div class="col-sm-8 text-center"> 
+                    <h1>Login</h1>
+
+                    <form action="<?php echo $helper->url("usuario", "crear"); ?>" method="post">
+                                            
+                        <hr/>
+                        <div class="form-group">
+                            <label  for="inputNombre">Nombre</label>                                    
+                            <input type="text"  class="form-control" id="inputNombre" placeholder="Nombre de Usuario">                                                             
+                        </div>
+                        <div class="form-group">
+                            <label  for="inputPass">Password</label>                                    
+                            <input type="password"  class="form-control" id="inputPass" placeholder="Contrasena">                                                             
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Login" />                                                           
+                        </div>
                     </form>
                 </div>
                 <div class="col-sm-2 sidenav">
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
-                    <div class="well">
-                        <p>ADS</p>
-                    </div>
+
                 </div>
             </div>
         </div>
 
         <footer class="container-fluid text-center">
-            <p>Footer Text</p>
+            <p>&copy; 2018 Dominguez G., Tintin C., Mieles S.</p>
         </footer>
 
     </body>

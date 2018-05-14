@@ -21,10 +21,8 @@ class UsuarioControlador extends ControladorBase{
     public function crear(){
         if(isset($_POST["nombre"])){
             $usuario = new Usuario();
-            
             $nombre=$_POST["nombre"];
             $password=$_POST["password"];
-            
             $usuario->setNombre($nombre);
             $usuario->setPassword($password);
             $guardar=$usuario->guardar();

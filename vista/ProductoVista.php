@@ -64,17 +64,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>                        
                     </button>
-                    <a class="navbar-brand" href="#"><img src="../Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
+                    <a class="navbar-brand" href="#"><img src="Recursos/img/Icono.png" alt="Icono" width="60" style="margin-top: -10px" ></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Inicio</a></li>
-                        <li><a href="#">Clientes</a></li>
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Ventas</a></li>
+                       
+                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
+                        <li class="active"><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
+                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                         <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,9 +85,9 @@
                 <div class="col-sm-2 sidenav">
                 </div>
                 <div class="col-sm-8 text-center"> 
-                    <h1>Ingreso de Productos</h1>
+                    <h1>Registro de Producto</h1>
                     <div class="panel panel-default">
-                        <div class="panel-heading">Datos de Productos</div>
+                        <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
                             <form>
                                 <div class="form-group">
@@ -117,11 +117,10 @@
                                     <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
                                 </div>
                                 <div class="form-group">
-                                   <input class="btn btn-primary" type="submit" value="Guardar">
-                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                     <input class="btn btn-primary" type="reset" value="Nuevo">
+                                   <input class="btn btn-success" type="submit" value="Registar">
+                                   
                                 </div>
-
-
                             </form>
 
                         </div>
