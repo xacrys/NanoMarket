@@ -16,7 +16,7 @@ class ProductoControlador extends ControladorBase {
         
         $categoriaModelo= new CategoriaModelo();
         $this->listaCategorias=$categoriaModelo->obtenerCategoria();
-        $this->view("Producto", array("todasCategorias" => $this->listaCategorias));
+        $this->view("Producto", array("listaCategorias" => $this->listaCategorias));
     }
 
     // Crear nuevo Cliente

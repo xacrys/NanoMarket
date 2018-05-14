@@ -1,18 +1,12 @@
 <?php
-
-
 $categorias = ''; //Buscar, Crear, Modificar
 // Estos resultados vienen desde el Controlador
 
 
-if(isset($listaCategorias)) {
+if (isset($listaCategorias)) {
     $categorias = $listaCategorias;
-    echo 'si entra';
-    
+    print_r($categorias);
 }
-
-
-
 ?>
 
 
@@ -87,13 +81,13 @@ if(isset($listaCategorias)) {
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                       
+
                         <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
                         <li class="active"><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
                         <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -111,12 +105,14 @@ if(isset($listaCategorias)) {
                             <form>
                                 <div class="form-group">
                                     <label for="selectCategoria">Categoria</label>
+                                    
                                     <select class="form-control" id="selectCategoria">
                                         <option>--Seleccione Categoria--</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        <?php                                           
+                                            foreach ($categorias as $cat) {
+                                                     echo '<option>'.$cat->nombre.'</option>';
+                                            }
+                                         ?>
                                     </select>
                                 </div>                            
                                 <div class="form-group">
@@ -136,9 +132,9 @@ if(isset($listaCategorias)) {
                                     <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
                                 </div>
                                 <div class="form-group">
-                                     <input class="btn btn-primary" type="reset" value="Nuevo">
-                                   <input class="btn btn-success" type="submit" value="Registar">
-                                   
+                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                    <input class="btn btn-success" type="submit" value="Registar">
+
                                 </div>
                             </form>
 
