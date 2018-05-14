@@ -103,11 +103,11 @@ if (isset($nuevoProducto)) {
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
-                            <form>
+                            <form action="<?php echo $helper->url("producto", "guardar"); ?>" method="post">
                                 <div class="form-group">
                                     <label for="selectCategoria">Categoria</label>
                                     
-                                    <select class="form-control" id="selectCategoria">
+                                    <select class="form-control" id="selectCategoria" name="categoria">
                                         <option>--Seleccione Categoria--</option>
                                         <?php                                           
                                             foreach ($categorias as $cat) {
@@ -118,19 +118,19 @@ if (isset($nuevoProducto)) {
                                 </div>                            
                                 <div class="form-group">
                                     <label  for="inputCodigo">Codigo</label>                                    
-                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto">                                                             
+                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto" name="codigo">                                                             
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto">                                        
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle">                                        
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Precio">                                                                  
+                                    <input id="inputPrecio" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Precio" name="precio">                                                                   
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock">
+                                    <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock" name="stock">
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="reset" value="Nuevo">

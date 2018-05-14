@@ -1,11 +1,11 @@
 <?php
 
-class ProductoModelo extends ModeloBase{
+class ProductoModelo extends ModeloBase {
+
     private $idproducto, $idcategoria, $detalle, $stock, $precio;
-    
-    
+
     public function __construct() {
-        $tabla="producto";
+        $tabla = "producto";
         parent::__construct($tabla);
     }
 
@@ -49,18 +49,21 @@ class ProductoModelo extends ModeloBase{
         $this->precio = $precio;
     }
 
-    
-    public function guardar(){
-        $query="INSERT INTO categoria (nombre, descripcion) VALUES (
-            '".$this->nombre."',
-            '".$this->descripcion."'            
-            )"; 
-        $this->db()->query($query);        
+    public function guardar() {
+        $query = "INSERT INTO producto (idproducto, idcategoria,detalle,stock,precio_venta) VALUES (
+            '" . $this->idproducto. "',
+            '" . $this->idcategoria. "'
+            '" . $this->detalle. "'
+            '" . $this->stock. "'
+            '" . $this->precio. "'
+            )";
+        $this->db()->query($query);
     }
-    
-     public function obtenerCategoria() {        
+
+    public function obtenerCategoria() {
         $sql = "SELECT * from categoria where activo=1;";
         $resultSetCliente = $this->ejecutarSql($sql);
         return $resultSetCliente;
     }
+
 }
