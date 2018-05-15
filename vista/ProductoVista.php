@@ -159,7 +159,7 @@ if (isset($productoBuscado)) {
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Nuevo" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista');">
-                                    <input class="btn btn-success" type="submit" value="Registar">
+                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');">
 
                                 </div>
                             </form>
