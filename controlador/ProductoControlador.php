@@ -4,11 +4,13 @@ class ProductoControlador extends ControladorBase {
 
     private $listaCategorias;
     private $nuevoProducto;
+    private $resultadoP;
     
     
     public function __construct() {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
+        $this->resultadoP = false;
         parent::__construct();
     }
 
@@ -21,7 +23,9 @@ class ProductoControlador extends ControladorBase {
 
     // Crear nuevo Producto
     public function guardar() {
-        if(isset($_POST["categoria"])){                    
+        
+        if(isset($_POST["categoria"])){    
+           
             $codigo = $_POST["codigo"];
             $categoria = $_POST["categoria"];
             $detalle = $_POST["detalle"];
@@ -33,11 +37,15 @@ class ProductoControlador extends ControladorBase {
             $producto->setIdcategoria($categoria);
             $producto->setDetalle($detalle);
             $producto->setPrecio($precio); 
-            $producto->setPrecio($precio);  
+            $producto->setStock($stock);  
             $save = $producto->guardar();
+            if ($save) {
+                $this->resultadoP = true;
+            }  
         }
-        print_r($producto);
-        $this->redirect("Producto","index");
+        $this->view("Producto", array("resultadoP"=>$this->resultadoP));
+      
+       
     }
 
     // Eliminar Cliente
@@ -52,17 +60,17 @@ class ProductoControlador extends ControladorBase {
 
     // Buscar Cliente
     public function buscar() {
-//        if(isset($_POST["idcliente"])){
-//            $idcliente = $_POST["idcliente"];
-//
-//            //set new Cliente
-//            $cliente = new ClienteModelo();        
-//            $cliente->set_idcliente($idcliente);
-//            $unCliente = $cliente->find();
-//
-//            //Cargamos la vista Cliente y enviar resultados
-//            $this->view("Cliente", array("unCliente"=>$unCliente));
-//        }
+        if(isset($_POST["codigo"])){
+            $codigo= (int)$_POST["codigo"];
+            //set new Cliente
+            $producto = new ProductoModelo();
+            $productoBuscado = $producto->buscarProducto($codigo);
+            $categoriaModelo= new CategoriaModelo();
+            $this->listaCategorias=$categoriaModelo->obtenerCategoria();
+            echo $this->listaCategorias;
+            //Cargamos la vista Cliente y enviar resultados
+            $this->view("Producto", array("listaCategorias" => $this->listaCategorias,"productoBuscado"=>$productoBuscado));
+        }
     }
 
     // Modificar Cliente

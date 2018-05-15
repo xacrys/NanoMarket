@@ -1,12 +1,33 @@
 <?php
-$categorias = ''; 
-$producto = '';//Buscar, Crear, Modificar
+$categorias = '';
+$producto = ''; //Buscar, Crear, Modificar
+$productoIngresado = false;
+$codigo = '';
+$categoria = '';
+$detalle = '';
+$precio = '';
+$stock = '';
+
+
 // Estos resultados vienen desde el Controlador
 if (isset($listaCategorias)) {
+    echo 'si entra 1';
     $categorias = $listaCategorias;
+    
 }
 if (isset($nuevoProducto)) {
     $producto = $nuevoProducto;
+}
+if (isset($resultadoP)) {
+    $productoIngresado = $resultadoP;
+}
+if (isset($productoBuscado)) {
+    $codigo = $productoBuscado[0]->idproducto;
+    $categoria = $productoBuscado[0]->idcategoria;
+    $detalle = $productoBuscado[0]->detalle;
+    $precio = $productoBuscado[0]->precio_venta;
+    $stock = $productoBuscado[0]->stock;
+    
 }
 ?>
 
@@ -21,16 +42,9 @@ if (isset($nuevoProducto)) {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-            function isNumericKey(evt)
-            {
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode != 46 && charCode > 31
-                        && (charCode < 48 || charCode > 57))
-                    return true;
-                return false;
-            }
-        </script>
+        <script src="js/validaciones.js"></script>
+        <script src="js/validacionesCliente.js"></script>
+        
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
@@ -71,6 +85,7 @@ if (isset($nuevoProducto)) {
     <body>
 
         <nav class="navbar navbar-inverse">
+
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -100,40 +115,50 @@ if (isset($nuevoProducto)) {
                 </div>
                 <div class="col-sm-8 text-center"> 
                     <h1>Registro de Producto</h1>
+                    <div class="alert alert-success" style="display:<?php echo $productoIngresado ? 'block' : 'none' ?>">Producto Ingresado correctamente</div>
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
-                            <form action="<?php echo $helper->url("producto", "guardar"); ?>" method="post">
-                                <div class="form-group">
-                                    <label for="selectCategoria">Categoria</label>
-                                    
-                                    <select class="form-control" id="selectCategoria" name="categoria">
-                                        <option>--Seleccione Categoria--</option>
-                                        <?php                                           
-                                            foreach ($categorias as $cat) {
-                                                     echo '<option value="'.$cat->idcategoria.'">'.$cat->nombre.'</option>';
-                                            }
-                                         ?>
-                                    </select>
-                                </div>                            
-                                <div class="form-group">
-                                    <label  for="inputCodigo">Codigo</label>                                    
-                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto" name="codigo">                                                             
+                            <form  action="" method="post" name="ProductoVista" id="ProductoVista">
+                                <div class="form-group">  
+                                    <label for="inputCodigo">Codigo</label>
+                                    <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto" name="codigo" value="<?php print($codigo); ?>" >   
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit" onclick="saltar('<?php echo $helper->url("Producto", "buscar"); ?>', 'ProductoVista');">Buscar</button>
+                                    </div>
                                 </div>
                                 <div class="form-group">
+
+                                    <label for="selectCategoria">Categoria</label>
+
+                                    <select class="form-control" id="selectCategoria" name="categoria" >
+                                        <option>--Seleccione Categoria--</option>
+                                        <?php
+                                        foreach ($categorias as $cat) {
+                                            if ($cat->idcategoria == $categoria) {
+                                                echo '<option value="' . $cat->idcategoria . '" selected="selected">' . $cat->nombre . '</option>';
+                                            } else {
+                                                echo '<option value="' . $cat->idcategoria . '">' . $cat->nombre . '</option>';
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>                            
+
+                                <div class="form-group">
                                     <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle">                                        
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>">                                        
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Precio" name="precio">                                                                   
+                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>">                                                                   
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control" onkeypress="return isNumericKey(event)"   type="text" placeholder="Stock" name="stock">
+                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>">
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="reset" value="Nuevo">
+                                    <input class="btn btn-primary" type="submit" value="Nuevo" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista');">
                                     <input class="btn btn-success" type="submit" value="Registar">
 
                                 </div>

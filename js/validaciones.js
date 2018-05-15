@@ -1,5 +1,6 @@
 // Función de JavaScript para enviar el formulario a la página indicada.
 function saltar(pagina,myForm){
+   
     document.getElementById(myForm).action=pagina;
     document.getElementById(myForm).submit();
     //document.ClienteVista.action=pagina;

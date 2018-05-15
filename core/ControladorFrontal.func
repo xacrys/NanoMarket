@@ -14,6 +14,7 @@ function cargarControlador($controlador)
     if(!is_file($strFileControlador)){
         $strFileControlador = 'controlador/'.ucwords(CONTROLADOR_DEFECTO).'Controlador.php';
     }
+    
     require_once $strFileControlador;
     $controladorObj = new $controlador();
     return $controladorObj;

@@ -51,13 +51,22 @@ class ProductoModelo extends ModeloBase {
 
     public function guardar() {
         $query = "INSERT INTO producto (idproducto, idcategoria,detalle,stock,precio_venta) VALUES (
-            '" . $this->idproducto. "',
-            '" . $this->idcategoria. "'
-            '" . $this->detalle. "'
-            '" . $this->stock. "'
-            '" . $this->precio. "'
-            )";
-        $this->db()->query($query);
+            " . $this->idproducto . ",
+            " . $this->idcategoria . ",
+            '" . $this->detalle . "',
+            " . $this->stock . ",
+            " . $this->precio . "
+            );";
+        $flagPro = $this->db()->query($query);
+        return $flagPro;
+    }
+
+    public function buscarProducto($codigo) {
+        $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
+        if ($row = $query->fetch_object()) {
+            $resultSet[] = $row;
+        }
+        return $resultSet;
     }
 
     public function obtenerCategoria() {
