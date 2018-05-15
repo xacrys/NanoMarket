@@ -1,3 +1,17 @@
+<?php
+    $accion = ''; //login
+    $resultado = false; //true Exitoso, false Fallido 
+    
+    // Estos resultados vienen desde el Controlador
+    if(isset($accionC)) {
+        $accion = $accionC;
+    }
+    if(isset($resultadoC)) {
+        $resultado = $resultadoC;
+    }    
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -58,10 +72,33 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>                   
+                        <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
+                        <li><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
+                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>                   
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="#">
+                        <?php if(isset($_SESSION['user'])) { 
+                            echo "Bienvenido ".$_SESSION['user'];
+                        } ?>
+                        </a>
+                        </li>
+
+                        <li><a href="
+                        <?php 
+                        if(isset($_SESSION['user'])) {
+                            echo $helper->url("Usuario", "logout");
+                        } else {
+                            echo $helper->url("Usuario", "index");
+                        }
+                        ?>
+                        "><span class="glyphicon glyphicon-log-in"></span>
+                        <?php if(isset($_SESSION['user'])) { ?>
+                        Logout
+                        <?php } else { ?>
+                        Login
+                        <?php } ?>                         
+                        </a></li>
                     </ul>
                 </div>
             </div>
@@ -72,25 +109,37 @@
                 <div class="col-sm-2 sidenav">
 
                 </div>
+
+                <!-- Inicio Separador -->
                 <div class="col-sm-8 text-center"> 
                     <h1>Login</h1>
 
-                    <form action="<?php echo $helper->url("usuario", "crear"); ?>" method="post">
+                    <form action="<?php echo $helper->url("Usuario", "login"); ?>" method="post">
                                             
                         <hr/>
                         <div class="form-group">
                             <label  for="inputNombre">Nombre</label>                                    
-                            <input type="text"  class="form-control" id="inputNombre" placeholder="Nombre de Usuario">                                                             
+                            <input type="text"  class="form-control" name="inputNombre" id="inputNombre" placeholder="Nombre de Usuario">                                                             
                         </div>
                         <div class="form-group">
                             <label  for="inputPass">Password</label>                                    
-                            <input type="password"  class="form-control" id="inputPass" placeholder="Contrasena">                                                             
+                            <input type="password"  class="form-control" name="inputPass" id="inputPass" placeholder="Contraseña">                                                             
+                        </div>                        
+                        <div class="form-group">
+                        <?php                        
+                        if(!$resultado && isset($unUsuario) && $unUsuario["nombre"] == "UNDEFINED")
+                        { ?>
+                            El usuario introducido no existe.
+                        <?php
+                        } ?>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary" value="Login" />                                                           
+                            <input type="submit" class="btn btn-primary" value="Login" />
                         </div>
                     </form>
                 </div>
+                <!-- Fin Separador -->
+
                 <div class="col-sm-2 sidenav">
 
                 </div>

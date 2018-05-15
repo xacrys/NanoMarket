@@ -108,14 +108,34 @@ if (($accion == 'buscar' || $accion == 'actualizar') && $resultado) {
                     <a class="navbar-brand" href="#"><img src="img/Icono.png" alt="Icono" width="120" style="margin-top: -5px" ></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                   <ul class="nav navbar-nav">
-                       
+                   <ul class="nav navbar-nav">                       
                         <li class="active"><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
                         <li ><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
                         <li><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                         <li><a href="<?php echo $helper->url("Usuario", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="#">
+                        <?php if(isset($_SESSION['user'])) { 
+                            echo "Bienvenido ".$_SESSION['user'];
+                        } ?>
+                        </a>
+                        </li>
+
+                        <li><a href="
+                        <?php 
+                        if(isset($_SESSION['user'])) {
+                            echo $helper->url("Usuario", "logout");
+                        } else {
+                            echo $helper->url("Usuario", "index");
+                        }
+                        ?>
+                        "><span class="glyphicon glyphicon-log-in"></span>
+                        <?php if(isset($_SESSION['user'])) { ?>
+                        Logout
+                        <?php } else { ?>
+                        Login
+                        <?php } ?>                         
+                        </a></li>
                     </ul>
                 </div>
             </div>

@@ -7,17 +7,39 @@
  */
 
 class UsuarioModelo extends ModeloBase{
-    private $tabla;
+    private $nombre;
+    private $password;
     
-    public function __construct($tabla) {
-        $this->tabla="usuario";
-        parent::construct($this->tabla);
+    public function __construct() {
+        $tabla="usuario";        
+        parent::__construct($tabla);
+    }
+
+    // Destructor
+    public function __destruct() {
+
+    }
+
+    // getters
+    public function get_nombre() {
+        return $this->nombre;
+    }    
+    public function get_password() {
+        return $this->password;
+    }
+
+    //setters
+    public function set_nombre($value) {
+        $this->nombre = $value;
+    }
+    public function set_password($value) {
+        $this->password = $value;
     }
     
-    public function getUnUsuario(){
-        $query = "SELECT * FROM usuario where nombre='cristian'";
-        $usuario = $this->ejecutarSql($query);
-        return $usuario;
+    // Buscar un Usuario según nombre y contraseña
+    public function find() {        
+        $sql = "SELECT * from usuario where nombre = '$this->nombre' and password='$this->password';";
+        $resultSetUsuario = $this->ejecutarSql($sql);       
+        return $resultSetUsuario;
     }
-    
 }
