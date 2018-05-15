@@ -1,3 +1,57 @@
+<?php
+
+
+$accion = ''; //Buscar, Crear, Modificar
+$resultado = false; //true Exitoso, false Fallido
+ //Buscar, Crear, Modificar
+$productoIngresado = false;
+$codigo = '';
+$detalle = '';
+$precio = '';
+$stock = '';
+
+
+
+
+// Estos resultados vienen desde el Controlador
+
+if (isset($nuevoProducto)) {
+    $producto = $nuevoProducto;
+}
+if (isset($resultadoP)) {
+    $productoIngresado = $resultadoP;
+}
+if (isset($productoBuscado)) {
+    $codigo = $productoBuscado[0]->idproducto;
+    $categoria = $productoBuscado[0]->idcategoria;
+    $detalle = $productoBuscado[0]->detalle;
+    $precio = $productoBuscado[0]->precio_venta;
+    $stock = $productoBuscado[0]->stock;
+    
+}
+
+
+$idcliente = '';
+$nombre = '';
+$apellido = '';
+
+
+if(isset($accionC)) {
+    $accion = $accionC;
+}
+if(isset($resultadoC)) {
+    $resultado = $resultadoC;
+}
+
+if (isset($clienteBuscado)) {
+
+    $idcliente = $clienteBuscado[0]->idcliente;
+    $nombre = $clienteBuscado[0]->nombre;
+    $apellido = $clienteBuscado[0]->apellido;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,6 +61,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="./js/validaciones.js"></script>
+        <script src="./js/validacionesCliente.js"></script>
         <script>
             function isNumericKey(evt)
             {
@@ -71,7 +127,7 @@
 
                         <li><a href="<?php echo $helper->url("Cliente", "index"); ?>">Clientes</a></li>
                         <li><a href="<?php echo $helper->url("Producto", "index"); ?>">Productos</a></li>
-                        <li class="active"><a href="#">Ventas</a></li>
+                        <li class="active"><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<?php echo $helper->url("Venta", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -89,20 +145,33 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Cliente</div>
                         <div class="panel-body">
-                            <form>
+                        <form action="" method="post" name="VentaVista" id="VentaVista">
+                        <input type="hidden" name="accion" value="ninguno"/>
                                 <div class="form-group">
-                                    <label for="inputCedula">Cedula del Cliente</label>
-                                    <input type="text" class="form-control" id="inputCedula" placeholder="Cedula del Cliente"> 
-                                    <input class="btn btn-primary" type="reset" value="Nuevo">
-                                </div>                            
-                                <div class="form-group">
-                                    <label  for="inputNombre">Nombre</label>                                    
-                                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del Cliente">                                                             
+                                <label for="idcliente">Cedula del Cliente</label>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="text" class="form-control" id="idcliente" name="idcliente" value="<?php print($idcliente); ?>" placeholder="Cedula del Cliente" maxlength="10"  > 
+                                    </div>
+                                    <div class="col-md-6 mb-3">     
+                                        <input id="btnBuscar" class="btn btn-primary" type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Venta", "buscarcli"); ?>','VentaVista');" class="btn btn-primary"/>
+                                    </div>  
                                 </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-6 mb-3">
+                                 <div class="form-group">
+                                      <label  for="inputNombre">Nombre</label>                                    
+                                      <input type="text" name="nombre" value="<?php print($nombre); ?>" class="form-control" id="nombre" placeholder="Nombre del Cliente">                                                             
+                                </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label  for="inputNombre">Apellido</label>                                    
-                                    <input type="text" class="form-control" id="inputNombre" placeholder="Nombre del Cliente">                                                             
+                                    <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" placeholder="Apellido del Cliente">                                                             
                                 </div>
+                                </div>
+                        </form> 
                                 <div class="form-group">
                                     <label for="selectTipo">Tipo de Pago</label>
                                     <select class="form-control" id="selectTipo">
@@ -110,41 +179,53 @@
                                         <option>Credito</option>
                                         <option>Contado</option>
                                     </select>
-                                </div>                            
+                                </div>    
+
                                 <h3>Detalle de la venta</h3>
+                            <!-- segundo formulario para cargar el producto-->                        
+                        <form action="" method="post" name="VentaVista1" id="VentaVista1">       
                                 <div class="form-group">
-                                    <label for="inputProducto">Producto</label>
-                                    <select class="form-control" id="selectTipo">
-                                        <option>--Seleccione Producto-</option>
-                                        <option>Producto1</option>
-                                        <option>Producto2</option>
-                                    </select>
-                                    <input class="btn btn-primary" type="submit" value="Agregar">
-                                </div>  
-                                <div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="inputProducto">Producto</label>
+                                            <input type="text" class="form-control" id="codigo" value="<?php print($codigo);?>" name= "codigo" placeholder="Codigo del Producto">
+                                        </div>
+                                        <div class="col-md-6 mb-3"> 
+                                            <label for="inputProducto">Cantidad</label>                                                           
+                                            <input type="text" class="form-control"  id="cantidad" name= "cantidad" placeholder="Cantidad del Producto">                                                            
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="mb-3">
+                                    <input class="btn btn-primary" type="submit" type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Venta", "buscarPro"); ?>','VentaVista1');" class="btn btn-primary"/>
+                                    <input class="btn btn-success" type="submit" value="Agregar">
+                                </div>
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Precio Unitario</th>
+                                                <th>Cantidad</th>
                                                 <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>John</td>
-                                                <td>Doe</td>
-                                                <td>john@example.com</td>
+                                                <td><?php print($detalle); ?></td>
+                                                <td><?php print($precio); ?></td>
+                                                <td>"<?php print($apellido); ?>"</td>
+                                                <td>"<?php print($apellido); ?>"</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="reset" value="Nuevo">
                                     <input class="btn btn-success" type="submit" value="Registar">
 
                                 </div>
-                            </form>
+                        </form>
 
                         </div>
                     </div>                
@@ -157,9 +238,9 @@
             </div>
         </div>
 
-        <footer class="container-fluid text-center">
+        <!-- <footer class="container-fluid text-center">
             <p>&copy; 2018 Dominguez G., Tintin C., Mieles S.</p>
-        </footer>
+        </footer> -->
 
     </body>
 </html>

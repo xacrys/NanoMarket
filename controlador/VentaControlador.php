@@ -2,14 +2,56 @@
 
 class VentaControlador extends ControladorBase {
 
+
+    private $accionC;
+    private $resultadoC;
+
     public function __construct() {
         parent::__construct();
+        $this->accionC = '';
+        $this->resultadoC = false;
     }
 
     // acción por default
     public function index(){
-        echo "si entra";
+        
         $this->view("Venta", array("Venta" => ""));
+    }
+
+
+
+  // Buscar Cliente
+    public function buscarcli(){
+        echo $_POST["idcliente"]."/";
+        if(isset($_POST["idcliente"])){
+            $idcliente = $_POST["idcliente"];
+        
+            //set new Cliente
+            $cliente = new VentaModelo();        
+            $clienteBuscado = $cliente->buscarCliente($idcliente);
+
+                       
+            //Cargamos la vista Cliente y enviar resultados
+            $this->view("venta", array("clienteBuscado"=>$clienteBuscado));
+
+        }
+       
+    }
+    public function buscarPro(){
+        echo $_POST["codigo"]."/";
+        if(isset($_POST["codigo"])){
+            $codigo = $_POST["codigo"];
+        
+            //set new Cliente
+            $producto = new VentaModelo();        
+            $productoBuscado = $producto->buscarProducto($codigo);
+
+                       
+            //Cargamos la vista Cliente y enviar resultados
+            $this->view("venta", array("productoBuscado"=>$productoBuscado));
+
+        }
+       
     }
 
     // Crear nuevo Cliente
