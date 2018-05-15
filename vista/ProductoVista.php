@@ -42,7 +42,7 @@ if (isset($productoBuscado)) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/validaciones.js"></script>
-        <script src="js/validacionesCliente.js"></script>
+        <script src="js/validacionesProducto.js"></script>
         
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
@@ -130,7 +130,7 @@ if (isset($productoBuscado)) {
 
                                     <label for="selectCategoria">Categoria</label>
 
-                                    <select class="form-control" id="selectCategoria" name="categoria" >
+                                    <select class="form-control" id="selectCategoria" name="categoria" disabled="true">
                                         <option>--Seleccione Categoria--</option>
                                         <?php
                                         foreach ($categorias as $cat) {
@@ -146,18 +146,18 @@ if (isset($productoBuscado)) {
 
                                 <div class="form-group">
                                     <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>">                                        
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>" disabled="true">                                        
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>">                                                                   
+                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>" disabled="true">                                                                   
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>">
+                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>" disabled="true">
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Nuevo" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista');">
+                                    <input class="btn btn-primary" type="submit" value="Nuevo" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
                                     <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');">
                                 </div>
                             </form>
