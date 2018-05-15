@@ -11,7 +11,6 @@ $stock = '';
 
 // Estos resultados vienen desde el Controlador
 if (isset($listaCategorias)) {
-    echo 'si entra 1';
     $categorias = $listaCategorias;
     
 }
