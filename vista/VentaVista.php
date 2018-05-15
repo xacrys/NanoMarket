@@ -61,18 +61,9 @@ if (isset($clienteBuscado)) {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="./js/jquery-3.3.1.min.js.js"></script>
         <script src="./js/validaciones.js"></script>
-        <script src="./js/validacionesCliente.js"></script>
-        <script>
-            function isNumericKey(evt)
-            {
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode != 46 && charCode > 31
-                        && (charCode < 48 || charCode > 57))
-                    return true;
-                return false;
-            }
-        </script>
+        <script src="./js/validacionesVenta.js"></script>
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
@@ -188,36 +179,48 @@ if (isset($clienteBuscado)) {
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="inputProducto">Producto</label>
-                                            <input type="text" class="form-control" id="codigo" value="<?php print($codigo);?>" name= "codigo" placeholder="Codigo del Producto">
+                                            <input type="text" class="form-control" id="codigo" value="<?php print($codigo);?>" name= "codigo" placeholder="Codigo del Producto" >
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="inputProducto">Stock</label>
+                                            <input type="text" class="form-control" id="stock" value="5" name= "stock" placeholder="Stock" disabled>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="inputProducto">P. Venta</label>
+                                            <input type="text" class="form-control" id="precio_venta" value="2.30" name= "precio_venta" placeholder="Stock" disabled>
                                         </div>
                                         <div class="col-md-6 mb-3"> 
                                             <label for="inputProducto">Cantidad</label>                                                           
-                                            <input type="text" class="form-control"  id="cantidad" name= "cantidad" placeholder="Cantidad del Producto">                                                            
+                                            <input type="text" class="form-control"  id="cantidad" name= "cantidad" onkeypress="return isNumericKey(event)" maxlength="3" placeholder="Cantidad del Producto">                                                            
                                         </div>
                                     </div> 
                                 </div>
-                                <div class="mb-3">
-                                    <input class="btn btn-primary" type="submit" type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Venta", "buscarPro"); ?>','VentaVista1');" class="btn btn-primary"/>
-                                    <input class="btn btn-success" type="submit" value="Agregar">
+                                <div class="mb-3">                                    
+                                    <input type="button" id="add-row" name="add-row" class="btn btn-success" value="Agregar">                                    
                                 </div>
-                                    <table class="table table-condensed">
+                                    <table id="tDetalleVenta" class="table table-condensed">
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>
                                                 <th>Precio Unitario</th>
                                                 <th>Cantidad</th>
                                                 <th>Total</th>
+                                                <th>Seleccionar</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><?php print($detalle); ?></td>
-                                                <td><?php print($precio); ?></td>
-                                                <td>"<?php print($apellido); ?>"</td>
-                                                <td>"<?php print($apellido); ?>"</td>
+                                        <tfoot>
+                                            <tr id="tfootId">
+                                                <td colspan="2">Total</td>
+                                                <td colspan="3">0</td>
                                             </tr>
+                                            <tr>
+                                                <td colspan="5"> <button type="button" class="delete-row">Eliminar</button></td>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                           
                                         </tbody>
-                                    </table>
+                                    </table>                                    
                                 </div>
 
                                 <div class="form-group">
