@@ -72,7 +72,7 @@ class ProductoControlador extends ControladorBase {
             $productoBuscado = $producto->buscarProducto($codigo);
             $caModelo= new CategoriaModelo();
             $this->listaCategoriasDos=$caModelo->obtenerCategoria();
-            
+            print_r($this->listaCategoriasDos);
             print_r( $this->listaCategoriasDos);
             //Cargamos la vista Cliente y enviar resultados
             $this->view("Producto", array("productoBuscado" => $productoBuscado, "listaCategoriasDos" => $this->listaCategoriasDos));
