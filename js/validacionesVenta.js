@@ -1,5 +1,5 @@
+//jQuery DOM
 $(document).ready(function(){
-
     // Find and remove selected table rows
     $("#add-row").click(function(){
         var producto = $("#codigo").val();                    
@@ -38,6 +38,40 @@ $(document).ready(function(){
 
 });
 
+// Buscar Cliente desde la vista Ventas utilizando jQuery AJAX
+function buscarCliente(idcliente){
+    
+    if (!idcliente) {
+        document.getElementById("idcliente").innerHTML = "Valor requerido!";
+        return false;
+    }
+
+    var parametros = {
+        "idcliente" : idcliente
+    };
+    $.ajax({
+            data:  parametros,
+            url:   'index.php?controlador=Cliente&accion=buscarCli',
+            type:  'post',
+            dataType: "json", //JSON
+            beforeSend: function () {
+                    //$("#resultado").html("Procesando, espere por favor...");
+            },
+            success:  function (response) {                
+                var json_obj = $.parseJSON(response);//parse JSON
+                if (json_obj.nombre == 'UNDEFINED') {
+                    $("#idcliente").val('');
+                    $("#nombre").val('');
+                    $("#apellido").val('');
+                    alert('El Cliente no existe.');
+                } else {
+                    $("#nombre").val(json_obj.nombre);
+                    $("#apellido").val(json_obj.apellido);                                                
+                }                
+            }
+    });
+}
+
 function newTotal() {
     var total = 0;
     $('#tDetalleVenta > tbody  > tr').each(function() {
@@ -48,7 +82,6 @@ function newTotal() {
     return total;
 }
 
-function setRowPrice(tableId, rowId, colNum, newValue)
-{
+function setRowPrice(tableId, rowId, colNum, newValue) {
     $('#'+tableId).find('tr#'+rowId).find('td:eq('+colNum+')').html(newValue);
-};
+}

@@ -45,7 +45,7 @@ function nuevo() {
     document.getElementById("celular").value = "";
     document.getElementById("email").value = "";
     document.getElementById("direccion").value = "";
-    document.getElementById("tipo_cliente").value = "0";
+    document.getElementById("tipo_cliente").value = "Natural";
 
     //Limpiar y deshabilitar Buttons
     document.getElementById("btnRegistrar").disabled = false;

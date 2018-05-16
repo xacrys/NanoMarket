@@ -1,6 +1,5 @@
 <?php
 
-
 $accion = ''; //Buscar, Crear, Modificar
 $resultado = false; //true Exitoso, false Fallido
  //Buscar, Crear, Modificar
@@ -9,9 +8,6 @@ $codigo = '';
 $detalle = '';
 $precio = '';
 $stock = '';
-
-
-
 
 // Estos resultados vienen desde el Controlador
 
@@ -26,29 +22,13 @@ if (isset($productoBuscado)) {
     $categoria = $productoBuscado[0]->idcategoria;
     $detalle = $productoBuscado[0]->detalle;
     $precio = $productoBuscado[0]->precio_venta;
-    $stock = $productoBuscado[0]->stock;
-    
+    $stock = $productoBuscado[0]->stock;    
 }
-
 
 $idcliente = '';
 $nombre = '';
 $apellido = '';
 
-
-if(isset($accionC)) {
-    $accion = $accionC;
-}
-if(isset($resultadoC)) {
-    $resultado = $resultadoC;
-}
-
-if (isset($clienteBuscado)) {
-
-    $idcliente = $clienteBuscado[0]->idcliente;
-    $nombre = $clienteBuscado[0]->nombre;
-    $apellido = $clienteBuscado[0]->apellido;
-}
 ?>
 
 
@@ -61,7 +41,7 @@ if (isset($clienteBuscado)) {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="./js/jquery-3.3.1.min.js.js"></script>
+        <script src="./js/jquery-3.3.1.min.js"></script>
         <script src="./js/validaciones.js"></script>
         <script src="./js/validacionesVenta.js"></script>
         <style>
@@ -121,7 +101,28 @@ if (isset($clienteBuscado)) {
                         <li class="active"><a href="<?php echo $helper->url("Venta", "index"); ?>">Ventas</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?php echo $helper->url("Venta", "index"); ?>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="#">
+                        <?php if(isset($_SESSION['user'])) { 
+                            echo "Bienvenido ".$_SESSION['user'];
+                        } ?>
+                        </a>
+                        </li>
+
+                        <li><a href="
+                        <?php 
+                        if(isset($_SESSION['user'])) {
+                            echo $helper->url("Usuario", "logout");
+                        } else {
+                            echo $helper->url("Usuario", "index");
+                        }
+                        ?>
+                        "><span class="glyphicon glyphicon-log-in"></span>
+                        <?php if(isset($_SESSION['user'])) { ?>
+                        Logout
+                        <?php } else { ?>
+                        Login
+                        <?php } ?>                         
+                        </a></li>
                     </ul>
                 </div>
             </div>
@@ -134,18 +135,18 @@ if (isset($clienteBuscado)) {
                 <div class="col-sm-8 text-center"> 
                     <h1>Registro de Venta</h1>
                     <div class="panel panel-default">
-                        <div class="panel-heading">Datos del Cliente</div>
+                        <div class="panel-heading">Datos de la Venta</div>
                         <div class="panel-body">
                         <form action="" method="post" name="VentaVista" id="VentaVista">
                         <input type="hidden" name="accion" value="ninguno"/>
                                 <div class="form-group">
-                                <label for="idcliente">Cedula del Cliente</label>
+                                <label for="idcliente">Cédula del Cliente</label>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control" id="idcliente" name="idcliente" value="<?php print($idcliente); ?>" placeholder="Cedula del Cliente" maxlength="10"  > 
+                                        <input type="text" class="form-control" id="idcliente" name="idcliente" value="<?php print($idcliente); ?>" placeholder="Cédula del Cliente" maxlength="10" onkeypress="return isNumericKey(event)" required> 
                                     </div>
                                     <div class="col-md-6 mb-3">     
-                                        <input id="btnBuscar" class="btn btn-primary" type="submit" value="Buscar" onclick="saltar('<?php echo $helper->url("Venta", "buscarcli"); ?>','VentaVista');" class="btn btn-primary"/>
+                                        <input id="btnBuscar" class="btn btn-primary" type="button" onclick="buscarCliente($('#idcliente').val());" value="Buscar" class="btn btn-primary"/>
                                     </div>  
                                 </div>
                                 </div>
@@ -153,22 +154,21 @@ if (isset($clienteBuscado)) {
                                 <div class="col-md-6 mb-3">
                                  <div class="form-group">
                                       <label  for="inputNombre">Nombre</label>                                    
-                                      <input type="text" name="nombre" value="<?php print($nombre); ?>" class="form-control" id="nombre" placeholder="Nombre del Cliente">                                                             
+                                      <input type="text" name="nombre" value="<?php print($nombre); ?>" class="form-control" id="nombre" disabled>                                                             
                                 </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label  for="inputNombre">Apellido</label>                                    
-                                    <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" placeholder="Apellido del Cliente">                                                             
+                                    <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" disabled>                                                             
                                 </div>
                                 </div>
-                        </form> 
+                        </form>                         
                                 <div class="form-group">
                                     <label for="selectTipo">Tipo de Pago</label>
-                                    <select class="form-control" id="selectTipo">
-                                        <option>--Seleccione Tipo-</option>
-                                        <option>Credito</option>
-                                        <option>Contado</option>
+                                    <select class="form-control" id="selectTipo">                                       
+                                        <option value="credito">Crédito</option>
+                                        <option value="contado">Contado</option>
                                     </select>
                                 </div>    
 
@@ -225,7 +225,7 @@ if (isset($clienteBuscado)) {
 
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="reset" value="Nuevo">
-                                    <input class="btn btn-success" type="submit" value="Registar">
+                                    <input class="btn btn-success" type="submit" value="Registrar">
 
                                 </div>
                         </form>
