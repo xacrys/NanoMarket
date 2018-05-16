@@ -2,6 +2,7 @@
 $categorias = '';
 $producto = ''; //Buscar, Crear, Modificar
 $productoIngresado = false;
+$productoActualizado = false;
 $nuevo = true;
 $flagActualizar = false;
 $codigo = '';
@@ -25,18 +26,21 @@ if (isset($flagNuevo)) {
     $nuevo = $flagNuevo;
 }
 if (isset($productoBuscado)) {
-    echo 'si entrad dos';
+    echo 'siningresa 1';
     if(isset($listaCategoriasDos)){
-        echo 'si entrad tres';
+        echo 'siningresa 2';
         $categorias = $listaCategoriasDos;
     }
-    $codigo = $productoBuscado[0]->idproducto;
-    $categoria = $productoBuscado[0]->idcategoria;
-    $detalle = $productoBuscado[0]->detalle;
-    $precio = $productoBuscado[0]->precio_venta;
-    $stock = $productoBuscado[0]->stock;
+//    $codigo = $productoBuscado[0]->idproducto;
+//    $categoria = $productoBuscado[0]->idcategoria;
+//    $detalle = $productoBuscado[0]->detalle;
+//    $precio = $productoBuscado[0]->precio_venta;
+//    $stock = $productoBuscado[0]->stock;
     $nuevo = false;
     $flagActualizar = true;
+}
+if(isset($resultadoA)){
+ $productoActualizado=$resultadoA;
 }
 ?>
 
@@ -125,6 +129,7 @@ if (isset($productoBuscado)) {
                 <div class="col-sm-8 text-center"> 
                     <h1>Registro de Producto</h1>
                     <div class="alert alert-success" style="display:<?php echo $productoIngresado ? 'block' : 'none'; ?>">Producto Ingresado correctamente</div>
+                    <div class="alert alert-success" style="display:<?php echo $productoActualizado ? 'block' : 'none'; ?>">Producto Actualizado correctamente</div>
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
@@ -140,7 +145,7 @@ if (isset($productoBuscado)) {
 
                                     <label for="selectCategoria">Categoria</label>
 
-                                    <select class="form-control" id="selectCategoria" name="categoria" <?php echo $nuevo ? 'disabled':'';?>>
+                                    <select class="form-control" id="selectCategoria" name="categoria">
                                         <option value="0">--Seleccione Categoria--</option>
                                         <?php
                                         foreach ($categorias as $cat) {
@@ -169,7 +174,7 @@ if (isset($productoBuscado)) {
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Nuevo" onclick="nuevoProducto('<?php echo $helper->url("Producto", "nuevo"); ?>', 'ProductoVista');">
                                     <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar  ? 'disabled':'';?>>
-                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? '':'disabled';?>>
+                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "actualizar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? '':'disabled';?>>
                                     <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
                                 </div>
                             </form>
