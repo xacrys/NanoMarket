@@ -3,6 +3,7 @@
 class ProductoControlador extends ControladorBase {
 
     private $listaCategorias;
+    private $listaCategoriasDos;
     private $nuevoProducto;
     private $resultadoP;
     private $flagNuevo;
@@ -11,6 +12,7 @@ class ProductoControlador extends ControladorBase {
     public function __construct() {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
+        $this->listaCategoriasDos= '';
         $this->resultadoP = false;
         $this->flagNuevo = false;
         parent::__construct();
@@ -59,15 +61,7 @@ class ProductoControlador extends ControladorBase {
        
     }
 
-    // Eliminar Cliente
-    public function borrar() {
-//        if(isset($_POST["idcliente"])){
-//            $idcliente=$_POST["idcliente"];            
-//            $cliente = new ClienteModelo();
-//            $cliente->deleteBy('idcliente',$idcliente);
-//            $this->redirect();
-//        }
-    }
+
 
     // Buscar Cliente
     public function buscar() {
@@ -76,11 +70,12 @@ class ProductoControlador extends ControladorBase {
             //set new Cliente
             $producto = new ProductoModelo();
             $productoBuscado = $producto->buscarProducto($codigo);
-            $categoriaModelo= new CategoriaModelo();
-            $this->listaCategorias=$categoriaModelo->obtenerCategoria();
-            echo $this->listaCategorias;
+            $caModelo= new CategoriaModelo();
+            $this->listaCategoriasDos=$caModelo->obtenerCategoria();
+            
+            print_r( $this->listaCategoriasDos);
             //Cargamos la vista Cliente y enviar resultados
-            $this->view("Producto", array("listaCategorias" => $this->listaCategorias,"productoBuscado"=>$productoBuscado));
+            $this->view("Producto", array("productoBuscado" => $productoBuscado, "listaCategoriasDos" => $this->listaCategoriasDos));
         }
     }
 
