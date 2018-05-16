@@ -2,6 +2,7 @@
 $categorias = '';
 $producto = ''; //Buscar, Crear, Modificar
 $productoIngresado = false;
+$nuevo = true;
 $codigo = '';
 $categoria = '';
 $detalle = '';
@@ -19,6 +20,9 @@ if (isset($nuevoProducto)) {
 }
 if (isset($resultadoP)) {
     $productoIngresado = $resultadoP;
+}
+if (isset($flagNuevo)) {
+    $nuevo = $flagNuevo;
 }
 if (isset($productoBuscado)) {
     $codigo = $productoBuscado[0]->idproducto;
@@ -114,7 +118,7 @@ if (isset($productoBuscado)) {
                 </div>
                 <div class="col-sm-8 text-center"> 
                     <h1>Registro de Producto</h1>
-                    <div class="alert alert-success" style="display:<?php echo $productoIngresado ? 'block' : 'none' ?>">Producto Ingresado correctamente</div>
+                    <div class="alert alert-success" style="display:<?php echo $productoIngresado ? 'block' : 'none'; ?>">Producto Ingresado correctamente</div>
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
@@ -123,15 +127,15 @@ if (isset($productoBuscado)) {
                                     <label for="inputCodigo">Codigo</label>
                                     <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto" name="codigo" value="<?php print($codigo); ?>" >   
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" onclick="saltar('<?php echo $helper->url("Producto", "buscar"); ?>', 'ProductoVista');">Buscar</button>
+                                        <button class="btn btn-primary" type="submit" onclick="saltar('<?php echo $helper->url("Producto", "buscar"); ?>', 'ProductoVista');"  <?php echo $nuevo ? '':'disabled';?>>Buscar</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
 
                                     <label for="selectCategoria">Categoria</label>
 
-                                    <select class="form-control" id="selectCategoria" name="categoria" disabled="true">
-                                        <option>--Seleccione Categoria--</option>
+                                    <select class="form-control" id="selectCategoria" name="categoria" <?php echo $nuevo ? 'disabled':'';?>>
+                                        <option value="0">--Seleccione Categoria--</option>
                                         <?php
                                         foreach ($categorias as $cat) {
                                             if ($cat->idcategoria == $categoria) {
@@ -146,19 +150,21 @@ if (isset($productoBuscado)) {
 
                                 <div class="form-group">
                                     <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>" disabled="true">                                        
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>" <?php echo $nuevo ? 'disabled':'';?>>                                        
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>" disabled="true">                                                                   
+                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>" <?php echo $nuevo ? 'disabled':'';?>>                                                                   
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>" disabled="true">
+                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>" <?php echo $nuevo ? 'disabled':''?>>
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Nuevo" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
-                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');">
+                                    <input class="btn btn-primary" type="submit" value="Nuevo" onclick="nuevoProducto('<?php echo $helper->url("Producto", "nuevo"); ?>', 'ProductoVista'); ">
+                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $nuevo ? 'disabled':'';?>>
+                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $nuevo ? '':'disabled';?>>
+                                    <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
                                 </div>
                             </form>
 
