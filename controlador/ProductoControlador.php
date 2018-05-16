@@ -5,12 +5,14 @@ class ProductoControlador extends ControladorBase {
     private $listaCategorias;
     private $nuevoProducto;
     private $resultadoP;
+    private $flagNuevo;
     
     
     public function __construct() {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
         $this->resultadoP = false;
+        $this->flagNuevo = false;
         parent::__construct();
     }
 
@@ -18,7 +20,8 @@ class ProductoControlador extends ControladorBase {
     public function index(){
         $categoriaModelo= new CategoriaModelo();
         $this->listaCategorias=$categoriaModelo->obtenerCategoria();
-        $this->view("Producto", array("listaCategorias" => $this->listaCategorias, "nuevoProducto"=> $this->nuevoProducto));
+        $this->view("Producto", array("listaCategorias" => $this->listaCategorias));
+        
     }
 
     // Crear nuevo Producto
@@ -45,6 +48,14 @@ class ProductoControlador extends ControladorBase {
         }
         $this->view("Producto", array("resultadoP"=>$this->resultadoP));
       
+       
+    }
+    
+    public function nuevo(){
+        $this->flagNuevo = false;
+        $catModelo= new CategoriaModelo();
+        $this->listaCategorias=$catModelo->obtenerCategoria();
+        $this->view("Producto", array("flagNuevo"=>$this->flagNuevo,"listaCategorias" => $this->listaCategorias));
        
     }
 
