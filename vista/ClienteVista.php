@@ -167,8 +167,8 @@ if (($accion == 'buscar' || $accion == 'actualizar') && $resultado) {
                                     <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" placeholder="Apellidos" disabled>                                        
                                 </div>
                                 <div class="form-group">
-                                    <label  for="telefono">Telefono</label>                                    
-                                    <input type="text" name="telefono" value="<?php print($telefono); ?>" class="form-control" id="telefono" placeholder="Telefono" onkeypress="return isNumericKey(event)" disabled>
+                                    <label  for="telefono">Teléfono</label>                                    
+                                    <input type="text" name="telefono" value="<?php print($telefono); ?>" class="form-control" id="telefono" placeholder="Teléfono" onkeypress="return isNumericKey(event)" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label  for="celular">Celular</label>                                    
@@ -176,24 +176,17 @@ if (($accion == 'buscar' || $accion == 'actualizar') && $resultado) {
                                 </div>
                                 <div class="form-group">
                                     <label  for="email">Correo</label>                                    
-                                    <input type="email" name="email" value="<?php print($email); ?>" class="form-control" id="email" placeholder="Correo electronico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" disabled>
+                                    <input type="email" name="email" value="<?php print($email); ?>" class="form-control" id="email" placeholder="Correo electrónico" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label  for="direccion">Direccion</label>                                    
-                                    <input type="text" name="direccion" value="<?php print($direccion); ?>" class="form-control" id="direccion" placeholder="Direccion" disabled>
+                                    <label  for="direccion">Dirección</label>                                    
+                                    <input type="text" name="direccion" value="<?php print($direccion); ?>" class="form-control" id="direccion" placeholder="Dirección" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="tipo_cliente">Tipo</label>
-                                    <select name="tipo_cliente" class="form-control" id="tipo_cliente" disabled>
-                                        <<OPTION VALUE='0'>--Seleccione Tipo--</OPTION>
-                                        <?php
-                                        for ($i=1;$i<=3;$i++){                 
-                                            if ($tipo_cliente == $i)
-                                                echo "<OPTION VALUE='".$i."' selected='selected'>".$i."</OPTION>";                    
-                                            else
-                                                echo "<OPTION VALUE='".$i."'>".$i."</OPTION>";                    
-                                        }
-                                        ?>
+                                    <select name="tipo_cliente" class="form-control" id="tipo_cliente" disabled>                                        
+                                        <OPTION VALUE="Natural">Natural</OPTION>
+                                        <OPTION VALUE="Juridica">Jurídica</OPTION>                                        
                                     </select>                                   
                                 </div>  
                                 <div class="form-group">
