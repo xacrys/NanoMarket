@@ -50,6 +50,7 @@ class VentaModelo extends ModeloBase {
     }
 
     public function buscarProducto($codigo) {
+        echo "modelo";
         $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
         if ($row = $query->fetch_object()) {
             $resultSet[] = $row;
@@ -59,7 +60,7 @@ class VentaModelo extends ModeloBase {
 
 
     public function buscarCliente($idcliente) {
-        echo "modelo";
+        
         $query = $this->db()->query("SELECT idcliente, nombre, apellido from cliente where idcliente = $idcliente and activo=1");
         if ($row = $query->fetch_object()) {
             $resultSet[] = $row;
