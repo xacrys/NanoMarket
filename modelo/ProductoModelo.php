@@ -67,9 +67,7 @@ class ProductoModelo extends ModeloBase {
             " . $this->stock . ", precio_venta =
             " . $this->precio . " where idproducto =
             " . $this->idproducto . ";";
-        echo $query;
         $flagPro = $this->db()->query($query);
-        echo $flagPro ? 'true':'false';
         return $flagPro;
     }
 

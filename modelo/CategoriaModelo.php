@@ -40,11 +40,8 @@ class CategoriaModelo extends ModeloBase{
     }
     
      public function obtenerCategoria() {   
-         echo 'si entreaasd-----------------';
         $sql = "SELECT * from categoria where activo=1;";
-        $resultSetCliente = $this->ejecutarSql($sql);
-        print_r($resultSetCliente);
-        echo 'si en2-----------------';
+        $resultSetCliente = $this->ejecutarSql($sql);       
         return $resultSetCliente;
     }
 }
