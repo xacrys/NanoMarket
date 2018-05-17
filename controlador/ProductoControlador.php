@@ -72,7 +72,7 @@ class ProductoControlador extends ControladorBase {
     // Modificar Cliente
     public function actualizar() {
         if (isset($_POST["categoria"])) {
-            echo 'si entra';
+            
             $codigo = $_POST["codigo"];
             $categoria = $_POST["categoria"];
             $detalle = $_POST["detalle"];

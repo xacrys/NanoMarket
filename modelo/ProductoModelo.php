@@ -61,13 +61,15 @@ class ProductoModelo extends ModeloBase {
         return $flagPro;
     }
     public function actualizar() {
-        $query = "UPDATE INTO producto set idcategoria =
+        $query = "UPDATE producto set idcategoria =
             " . $this->idcategoria . ", detalle =
             '" . $this->detalle . "', stock = 
             " . $this->stock . ", precio_venta =
             " . $this->precio . " where idproducto =
             " . $this->idproducto . ";";
+        echo $query;
         $flagPro = $this->db()->query($query);
+        echo $flagPro ? 'true':'false';
         return $flagPro;
     }
 
