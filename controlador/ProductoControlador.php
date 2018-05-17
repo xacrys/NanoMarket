@@ -4,6 +4,7 @@ class ProductoControlador extends ControladorBase {
 
     private $listaCategorias;
     private $listaCategoriasDos;
+    private $productoConsultado;
     private $nuevoProducto;
     private $resultadoP;
     private $resultadoA;
@@ -13,6 +14,7 @@ class ProductoControlador extends ControladorBase {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
         $this->listaCategoriasDos = '';
+        $this->productoConsultado = '';
         $this->resultadoP = false;
         $this->resultadoA = false;
         $this->flagNuevo = false;
@@ -25,10 +27,8 @@ class ProductoControlador extends ControladorBase {
         $this->listaCategorias = $categoriaModelo->obtenerCategoria();
         $this->view("Producto", array("listaCategorias" => $this->listaCategorias));
     }
-
     // Crear nuevo Producto
     public function guardar() {
-
         if (isset($_POST["categoria"])) {
 
             $codigo = $_POST["codigo"];
@@ -62,20 +62,16 @@ class ProductoControlador extends ControladorBase {
     public function buscarProducto() {
         if (isset($_POST["codigo"])) {
             $codigo = (int) $_POST["codigo"];
-            $caModelo = new CategoriaModelo();
-            $this->listaCategoriasDos = $caModelo->obtenerCategoria();
             $producto = new ProductoModelo();
-            $productoBuscado = $producto->buscarProducto($codigo);
-            //Cargamos la vista Cliente y enviar resultados
-            $this->view("Producto", array("listaCategoriasDos" => $this->listaCategoriasDos, "productoBuscado" => $this->$productoBuscado));
-            //"productoBuscado" => $productoBuscado,
+            $this->productoConsultado= $producto->buscarProductoModelo($codigo);
+            $this->listaCategoriasDos= $producto->obtenerCategoria();
+            $this->view("Producto", array("productoConsultado" => $this->productoConsultado, "listaCategoriasDos" => $this->listaCategoriasDos));
         }
     }
-
+   
     // Modificar Cliente
     public function actualizar() {
         if (isset($_POST["categoria"])) {
-
             $codigo = $_POST["codigo"];
             $categoria = $_POST["categoria"];
             $detalle = $_POST["detalle"];

@@ -71,12 +71,10 @@ class ProductoModelo extends ModeloBase {
         return $flagPro;
     }
 
-    public function buscarProducto($codigo) {
-        $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
-        if ($row = $query->fetch_object()) {
-            $resultSet[] = $row;
-        }
-        return $resultSet;
+    public function buscarProductoModelo($codigo) {
+        $sql = "SELECT * from producto where idproducto =$codigo;";
+        $resultSetProducto = $this->ejecutarSql($sql);
+        return $resultSetProducto;
     }
 
     public function obtenerCategoria() {

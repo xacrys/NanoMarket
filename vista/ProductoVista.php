@@ -25,22 +25,20 @@ if (isset($resultadoP)) {
 if (isset($flagNuevo)) {
     $nuevo = $flagNuevo;
 }
-if (isset($productoBuscado)) {
-    echo 'siningresa 1';
-    if(isset($listaCategoriasDos)){
-        echo 'siningresa 2';
+if (isset($productoConsultado)) {
+    if (isset($listaCategoriasDos)) {
         $categorias = $listaCategoriasDos;
     }
-//    $codigo = $productoBuscado[0]->idproducto;
-//    $categoria = $productoBuscado[0]->idcategoria;
-//    $detalle = $productoBuscado[0]->detalle;
-//    $precio = $productoBuscado[0]->precio_venta;
-//    $stock = $productoBuscado[0]->stock;
+    $codigo = $productoConsultado[0]->idproducto;
+    $categoria = $productoConsultado[0]->idcategoria;
+    $detalle = $productoConsultado[0]->detalle;
+    $precio = $productoConsultado[0]->precio_venta;
+    $stock = $productoConsultado[0]->stock;
     $nuevo = false;
     $flagActualizar = true;
 }
-if(isset($resultadoA)){
- $productoActualizado=$resultadoA;
+if (isset($resultadoA)) {
+    $productoActualizado = $resultadoA;
 }
 ?>
 
@@ -57,7 +55,7 @@ if(isset($resultadoA)){
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/validaciones.js"></script>
         <script src="js/validacionesProducto.js"></script>
-        
+
         <style>
             /* Remove the navbar's default margin-bottom and rounded borders */ 
             .navbar {
@@ -138,7 +136,7 @@ if(isset($resultadoA)){
                                     <label for="inputCodigo">Codigo</label>
                                     <input type="text" class="form-control" id="inputCodigo" placeholder="Codigo del Producto" name="codigo" value="<?php print($codigo); ?>" >   
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="submit" onclick="saltar('<?php echo $helper->url("Producto", "buscar"); ?>', 'ProductoVista');"  <?php echo $nuevo ? '':'disabled';?>>Buscar</button>
+                                        <button class="btn btn-primary" type="submit" onclick="saltar('<?php echo $helper->url("Producto", "buscarProducto"); ?>', 'ProductoVista');"  <?php echo $nuevo ? '' : 'disabled'; ?>>Buscar</button>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -150,7 +148,7 @@ if(isset($resultadoA)){
                                         <?php
                                         foreach ($categorias as $cat) {
                                             if ($cat->idcategoria == $categoria) {
-                                                echo '<option value="' . $cat->idcategoria . '" selected="selected">' . $cat->nombre . '</option>';
+                                                echo '<option value="' . $cat->idcategoria . '" selected>' . $cat->nombre . '</option>';
                                             } else {
                                                 echo '<option value="' . $cat->idcategoria . '">' . $cat->nombre . '</option>';
                                             }
@@ -161,21 +159,21 @@ if(isset($resultadoA)){
 
                                 <div class="form-group">
                                     <label  for="inputDetalle">Detalle</label>
-                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>" <?php echo $nuevo ? 'disabled':'';?>>                                        
+                                    <input type="text" class="form-control" id="inputDetalle" placeholder="Detalle del producto" name="detalle" value="<?php print($detalle); ?>" <?php echo $nuevo ? 'disabled' : ''; ?>>                                        
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputPrecio">Precio</label>                                    
-                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>" <?php echo $nuevo ? 'disabled':'';?>>                                                                   
+                                    <input id="inputPrecio" class="form-control"    type="text" placeholder="Precio" name="precio" value="<?php print($precio); ?>" <?php echo $nuevo ? 'disabled' : ''; ?>>                                                                   
                                 </div>
                                 <div class="form-group">
                                     <label  for="inputStock">Stock</label>                                    
-                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>" <?php echo $nuevo ? 'disabled':''?>>
+                                    <input id="inputStock" class="form-control"    type="text" placeholder="Stock" name="stock" value="<?php print($stock); ?>" <?php echo $nuevo ? 'disabled' : '' ?>>
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Nuevo" onclick="nuevoProducto('<?php echo $helper->url("Producto", "nuevo"); ?>', 'ProductoVista');">
-                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar  ? 'disabled':'';?>>
-                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "actualizar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? '':'disabled';?>>
-                                    <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
+                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? 'disabled' : ''; ?>>
+                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "actualizar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? '' : 'disabled'; ?>>
+                                    <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista');">
                                 </div>
                             </form>
 
