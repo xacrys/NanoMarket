@@ -143,7 +143,7 @@ if (isset($resultadoA)) {
 
                                     <label for="selectCategoria">Categoria</label>
 
-                                    <select class="form-control" id="selectCategoria" name="categoria">
+                                    <select class="form-control" id="selectCategoria" name="categoria" <?php echo $nuevo ? 'disabled' : ''; ?>>
                                         <option value="0">--Seleccione Categoria--</option>
                                         <?php
                                         foreach ($categorias as $cat) {
