@@ -4,6 +4,7 @@
 $categorias = '';
 $producto = ''; //Buscar, Crear, Modificar
 $productoIngresado = false;
+$productoActualizado = false;
 $nuevo = true;
 $flagActualizar = false;
 $codigo = '';

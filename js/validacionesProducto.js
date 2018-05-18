@@ -2,6 +2,7 @@
 function validarBuscar(pagina, myForm, what){
     var valor = document.getElementById("inputCodigo").value;
     if(valor==null || valor.length == 0 || /^\s+$/.test(valor)){
+        alert("Código del producto no acepta nulos");
         $("#inputCodigo").parent().attr("class","form-group has-error");
         return false;
        
@@ -20,19 +21,19 @@ function validarNuevo(pagina, myForm, what){
     var stock = document.getElementById("inputStock").value;
 
     if(codigo==null || codigo.length == 0 || /^\s+$/.test(codigo)){
-        alert("Ingresar codigo para buscar");
+        alert("Código del producto es obligatorio");
         return false;
     } else
     if(detalle==null || detalle.length == 0 || /^\s+$/.test(detalle)){
-        alert("Ingresar detalle para buscar");
+        alert("detalle del producto es obligatorio");
         return false;
     } else
     if(precio==null || precio.length == 0 || /^\s+$/.test(precio)){
-        alert("Ingresar precio para buscar");
+        alert("precio del producto es obligatorio");
         return false;
     } else
     if(stock==null || stock.length == 0 || /^\s+$/.test(stock)){
-        alert("Ingresar stock para buscar");
+        alert("stock del producto es obligatorio");
         return false;
     }
     else{
