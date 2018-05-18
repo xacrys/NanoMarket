@@ -1,4 +1,6 @@
 <?php
+
+//Variables que interactuan con el controlador
 $categorias = '';
 $producto = ''; //Buscar, Crear, Modificar
 $productoIngresado = false;
@@ -12,20 +14,25 @@ $precio = '';
 $stock = '';
 $error = false;
 
-
-// Estos resultados vienen desde el Controlador
+// Lista de Categorias consultados al controlador
 if (isset($listaCategorias)) {
     $categorias = $listaCategorias;
 }
+
+// Nuevo producto para registrar
 if (isset($nuevoProducto)) {
     $producto = $nuevoProducto;
 }
+
+//Bandera utilizada para saber si el producto ha sido registrado
 if (isset($resultadoP)) {
     $productoIngresado = $resultadoP;
 }
+//Bandera utilizada para saber si el producto es nuevo
 if (isset($flagNuevo)) {
     $nuevo = $flagNuevo;
 }
+//Proceso para saber si existe un producto creado para consultar y actualizar informacion
 if (isset($productoConsultado)) {
     if (isset($listaCategoriasDos)) {
         $categorias = $listaCategoriasDos;

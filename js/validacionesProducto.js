@@ -1,3 +1,4 @@
+//Funcion para validar el codigo de producto al buscar
 function validarBuscar(pagina, myForm, what){
     var valor = document.getElementById("inputCodigo").value;
     if(valor==null || valor.length == 0 || /^\s+$/.test(valor)){
@@ -11,6 +12,7 @@ function validarBuscar(pagina, myForm, what){
     }
 }
 
+//Funcion para validar cada uno de los campos
 function validarNuevo(pagina, myForm, what){
     var codigo = document.getElementById("inputCodigo").value;
     var detalle = document.getElementById("inputDetalle").value;
@@ -63,15 +65,14 @@ function validar(pagina, myForm, what) {
         return true;
     }
 }
-
+//Limpiar y deshabilitar campo
 function nuevo() {
-    //Limpiar y deshabilitar campo
     document.getElementById("inputStock").value = "0";
     document.getElementById("inputDetalle").value = "";
     document.getElementById("inputPrecio").value = "";
     document.getElementById("inputStock").value = "";
 }
-
+//Funcion para lo ingresado en textos sea solo numeros enteros
 function soloNumeros(e){
     tecla = (document.all) ? e.keyCode : e.which;
 
@@ -85,7 +86,7 @@ function soloNumeros(e){
     tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
-
+//Funcion para lo ingresado en textos sea solo numeros decimales
 function soloFlotantes(evt,input){
     // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
     var key = window.Event ? evt.which : evt.keyCode;    

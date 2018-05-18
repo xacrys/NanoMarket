@@ -10,6 +10,7 @@ class ProductoControlador extends ControladorBase {
     private $resultadoA;
     private $flagNuevo;
 
+    //cosntrutor de la clase
     public function __construct() {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
@@ -27,7 +28,8 @@ class ProductoControlador extends ControladorBase {
         $this->listaCategorias = $categoriaModelo->obtenerCategoria();
         $this->view("Producto", array("listaCategorias" => $this->listaCategorias));
     }
-    // Crear nuevo Producto
+   
+    // Registrar nuevo Producto
     public function guardar() {
         if (isset($_POST["categoria"])) {
 
@@ -50,7 +52,8 @@ class ProductoControlador extends ControladorBase {
         }
         $this->view("Producto", array("resultadoP" => $this->resultadoP));
     }
-
+    
+    // Me permite ejecutar la pagina nueva enlistando las categorias
     public function nuevo() {
         $this->flagNuevo = false;
         $catModelo = new CategoriaModelo();
@@ -58,7 +61,7 @@ class ProductoControlador extends ControladorBase {
         $this->view("Producto", array("flagNuevo" => $this->flagNuevo, "listaCategorias" => $this->listaCategorias));
     }
 
-    // Buscar Cliente
+    // Buscar Producto
     public function buscarProducto() {
         if (isset($_POST["codigo"])) {
             $codigo = (int) $_POST["codigo"];
@@ -73,7 +76,7 @@ class ProductoControlador extends ControladorBase {
         }
     }
    
-    // Modificar Cliente
+    // Modificar Producto
     public function actualizar() {
         if (isset($_POST["categoria"])) {
             
