@@ -87,6 +87,7 @@ class ClienteControlador extends ControladorBase{
     // Buscar Cliente para Ventas
     // Returns a JSON representation of the result
     public function buscarCli(){
+       
         if(isset($_POST["idcliente"])){
             $idcliente = $_POST["idcliente"];
 

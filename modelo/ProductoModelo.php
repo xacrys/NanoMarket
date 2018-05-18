@@ -60,16 +60,6 @@ class ProductoModelo extends ModeloBase {
         $flagPro = $this->db()->query($query);
         return $flagPro;
     }
-    public function actualizar() {
-        $query = "UPDATE INTO producto set idcategoria =
-            " . $this->idcategoria . ", detalle =
-            '" . $this->detalle . "', stock = 
-            " . $this->stock . ", precio_venta =
-            " . $this->precio . " where idproducto =
-            " . $this->idproducto . ";";
-        $flagPro = $this->db()->query($query);
-        return $flagPro;
-    }
 
     public function buscarProducto($codigo) {
         $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
@@ -79,6 +69,7 @@ class ProductoModelo extends ModeloBase {
         return $resultSet;
     }
 
+    
     public function obtenerCategoria() {
         $sql = "SELECT * from categoria where activo=1;";
         $resultSetCliente = $this->ejecutarSql($sql);

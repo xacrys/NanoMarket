@@ -1,40 +1,27 @@
-<?php
 
+<?php
 $accion = ''; //Buscar, Crear, Modificar
 $resultado = false; //true Exitoso, false Fallido
  //Buscar, Crear, Modificar
-$productoIngresado = false;
 $codigo = '';
 $detalle = '';
 $precio = '';
 $stock = '';
-
+$producto = '';
+$listaProducto= '';
 // Estos resultados vienen desde el Controlador
-
-if (isset($nuevoProducto)) {
-    $producto = $nuevoProducto;
-}
-if (isset($resultadoP)) {
-    $productoIngresado = $resultadoP;
-}
 if (isset($productoBuscado)) {
-    $codigo = $productoBuscado[0]->idproducto;
-    $categoria = $productoBuscado[0]->idcategoria;
-    $detalle = $productoBuscado[0]->detalle;
-    $precio = $productoBuscado[0]->precio_venta;
-    $stock = $productoBuscado[0]->stock;    
+    $listaProducto = $productoBuscado;
 }
-
 $idcliente = '';
 $nombre = '';
 $apellido = '';
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+         
         <title>Nano Market</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,10 +68,11 @@ $apellido = '';
             }
         </style>
     </head>
-    <body>
-
+   
+    <body >
+    
         <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
+            <div class="container-fluid" >
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
@@ -128,7 +116,7 @@ $apellido = '';
             </div>
         </nav>
 
-        <div class="container-fluid text-center">    
+        <div class="container-fluid text-center" >    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
                 </div>
@@ -137,8 +125,8 @@ $apellido = '';
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos de la Venta</div>
                         <div class="panel-body">
-                        <form action="" method="post" name="VentaVista" id="VentaVista">
-                        <input type="hidden" name="accion" value="ninguno"/>
+                        <!-- <form action="" method="post" name="VentaVista0" id="VentaVista0"> -->
+                        <form action="" method="post" name="VentaVista" id="VentaVista">                        
                                 <div class="form-group">
                                 <label for="idcliente">Cédula del Cliente</label>
                                 <div class="row">
@@ -163,10 +151,10 @@ $apellido = '';
                                     <input type="text" name="apellido" value="<?php print($apellido); ?>" class="form-control" id="apellido" disabled>                                                             
                                 </div>
                                 </div>
-                        </form>                         
+                        <!-- </form>                         -->
                                 <div class="form-group">
                                     <label for="selectTipo">Tipo de Pago</label>
-                                    <select class="form-control" id="selectTipo">                                       
+                                    <select class="form-control" id="selectTipo" name="selectTipo">                                       
                                         <option value="credito">Crédito</option>
                                         <option value="contado">Contado</option>
                                     </select>
@@ -174,20 +162,33 @@ $apellido = '';
 
                                 <h3>Detalle de la venta</h3>
                             <!-- segundo formulario para cargar el producto-->                        
-                        <form action="" method="post" name="VentaVista1" id="VentaVista1">       
+                            <!-- <form action="" method="post" name="VentaVista1"  id="VentaVista1">        -->
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="inputProducto">Producto</label>
-                                            <input type="text" class="form-control" id="codigo" value="<?php print($codigo);?>" name= "codigo" placeholder="Codigo del Producto" >
+                                            
+                                            <select class="form-control" id="producto" name ="producto" >                                       
+                                            <option value="0">--Seleccione Producto--</option>
+                                            <?php
+                                             foreach ($listaProducto as $cat) {
+                                                if ($cat->idproducto == $listaProducto) {
+                                                    echo '<option value="' . $cat->idproducto . '" selected="selected">' . $cat->detalle . '</option>';
+                                                } else {
+                                                    echo '<option value="' . $cat->idproducto . '">' . $cat->detalle . '</option>';
+                                                }
+                                                }
+                                            ?>
+                                            </select>
                                         </div>
+                                        <input type="hidden" name="detalle" id="detalle" value=""/>
                                         <div class="col-md-6 mb-3">
                                             <label for="inputProducto">Stock</label>
-                                            <input type="text" class="form-control" id="stock" value="5" name= "stock" placeholder="Stock" disabled>
+                                            <input type="text" class="form-control" id="stock" value="" name= "stock" placeholder="Stock" disabled>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="inputProducto">P. Venta</label>
-                                            <input type="text" class="form-control" id="precio_venta" value="2.30" name= "precio_venta" placeholder="Stock" disabled>
+                                            <input type="text" class="form-control" id="precio_venta" value="" name= "precio_venta" placeholder="Precio_Venta" disabled>
                                         </div>
                                         <div class="col-md-6 mb-3"> 
                                             <label for="inputProducto">Cantidad</label>                                                           
@@ -224,12 +225,11 @@ $apellido = '';
                                 </div>
 
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="reset" value="Nuevo">
-                                    <input class="btn btn-success" type="submit" value="Registrar">
-
+                                    <input id="btnNuevo" class="btn btn-primary" type="reset" value="Nuevo">
+                                    <input id="btnRegistrar" class="btn btn-success" type="button" value="Registrar" >                                    
                                 </div>
                         </form>
-
+                        <!-- </form> -->
                         </div>
                     </div>                
 

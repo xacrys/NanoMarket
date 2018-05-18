@@ -49,25 +49,14 @@ class VentaModelo extends ModeloBase {
         return $resultSetCliente;
     }
 
-    public function buscarProducto($codigo) {
-        $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
-        if ($row = $query->fetch_object()) {
-            $resultSet[] = $row;
-        }
-        return $resultSet;
+    public function buscarProducto() {
+        //echo "modelo";
+        $sql = "SELECT * from producto";
+        $resultSetCliente = $this->ejecutarSql($sql);
+        return $resultSetCliente;
     }
 
-
-    public function buscarCliente($idcliente) {
-        echo "modelo";
-        $query = $this->db()->query("SELECT idcliente, nombre, apellido from cliente where idcliente = $idcliente and activo=1");
-        if ($row = $query->fetch_object()) {
-            $resultSet[] = $row;
-        }
-        return $resultSet;
-    }
-
-    // Agregar / Insertar un cliente 
+      // Agregar / Insertar un cliente 
     public function addCliente() {        
         $sql = "INSERT INTO cliente (idcliente,nombre,apellido,telefono,celular,email,direccion,tipo_cliente) 
                 values (
