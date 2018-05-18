@@ -31,22 +31,6 @@ if (isset($resultadoP)) {
 if (isset($flagNuevo)) {
     $nuevo = $flagNuevo;
 }
-<<<<<<< HEAD
-if (isset($productoBuscado)) {
-    echo 'si entrad dos';
-    if(isset($listaCategoriasDos)){
-        echo 'si entrad tres';
-        $categorias = $listaCategoriasDos;
-    }
-    $codigo = $productoBuscado[0]->idproducto;
-    $categoria = $productoBuscado[0]->idcategoria;
-    $detalle = $productoBuscado[0]->detalle;
-    $precio = $productoBuscado[0]->precio_venta;
-    $stock = $productoBuscado[0]->stock;
-    $nuevo = false;
-    $flagActualizar = true;
-}
-=======
 //Proceso para saber si existe un producto creado para consultar y actualizar informacion
 if (isset($productoConsultado)) {
     if (isset($listaCategoriasDos)) {
@@ -70,7 +54,6 @@ if (isset($productoConsultado)) {
 if (isset($resultadoA)) {
     $productoActualizado = $resultadoA;
 }
->>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
 ?>
 
 
@@ -158,11 +141,8 @@ if (isset($resultadoA)) {
                 <div class="col-sm-8 text-center"> 
                     <h1>Registro de Producto</h1>
                     <div class="alert alert-success" style="display:<?php echo $productoIngresado ? 'block' : 'none'; ?>">Producto Ingresado correctamente</div>
-<<<<<<< HEAD
-=======
                     <div class="alert alert-success" style="display:<?php echo $productoActualizado ? 'block' : 'none'; ?>">Producto Actualizado correctamente</div>
                     <div class="alert alert-danger" style="display:<?php echo $error ? 'block' : 'none'; ?>">Producto no encontrado</div>
->>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
                     <div class="panel panel-default">
                         <div class="panel-heading">Datos del Producto</div>
                         <div class="panel-body">
@@ -179,11 +159,7 @@ if (isset($resultadoA)) {
 
                                     <label for="selectCategoria">Categoria</label>
 
-<<<<<<< HEAD
-                                    <select class="form-control" id="selectCategoria" name="categoria" <?php echo $nuevo ? 'disabled':'';?>>
-=======
                                     <select class="form-control" id="selectCategoria" name="categoria" <?php echo $nuevo ? 'disabled' : ''; ?>>
->>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
                                         <option value="0">--Seleccione Categoria--</option>
                                         <?php
                                         foreach ($categorias as $cat) {
@@ -215,15 +191,9 @@ if (isset($resultadoA)) {
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Nuevo" onclick="nuevoProducto('<?php echo $helper->url("Producto", "nuevo"); ?>', 'ProductoVista');">
-<<<<<<< HEAD
-                                    <input class="btn btn-success" type="submit" value="Registar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar  ? 'disabled':'';?>>
-                                    <input class="btn btn-success" type="submit" value="Actualizar" onclick="saltar('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista');" <?php echo $flagActualizar ? '':'disabled';?>>
-                                    <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista'); ">
-=======
                                     <input class="btn btn-success" type="submit" value="Registar" onclick="validarNuevo('<?php echo $helper->url("Producto", "guardar"); ?>', 'ProductoVista', this);" <?php echo $flagActualizar ? 'disabled' : ''; ?>>
                                     <input class="btn btn-success" type="submit" value="Actualizar" onclick="validarNuevo('<?php echo $helper->url("Producto", "actualizar"); ?>', 'ProductoVista', this);" <?php echo $flagActualizar ? '' : 'disabled'; ?>>
                                     <input class="btn btn-primary" type="submit" value="Cancelar" onclick="saltar('<?php echo $helper->url("Producto", "index"); ?>', 'ProductoVista');">
->>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
                                 </div>
                             </form>
 

@@ -24,7 +24,6 @@ class EntidadBase{
   }
   public function getAll() {
       $query = $this->db->query("SELECT * FROM $this->tabla");
-      
       while ($row = $query->fetch_object()) {
           $resultSet[]=$row;
       }
