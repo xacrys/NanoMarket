@@ -66,7 +66,7 @@ class ProductoControlador extends ControladorBase {
     // Buscar Producto
     public function buscarProducto() {
         if (isset($_POST["codigo"])) {
-            $codigo = (int) $_POST["codigo"];
+            $codigo = $_POST["codigo"];
             $producto = new ProductoModelo();
             $encontrado = false; 
             $this->productoConsultado= $producto->buscarProductoModelo($codigo);

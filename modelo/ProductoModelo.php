@@ -52,7 +52,7 @@ class ProductoModelo extends ModeloBase {
     //Metodo que inserta el registro en la base de datos
     public function guardar() {
         $query = "INSERT INTO producto (idproducto, idcategoria,detalle,stock,precio_venta) VALUES (
-            " . $this->idproducto . ",
+            '" . $this->idproducto . "',
             " . $this->idcategoria . ",
             '" . $this->detalle . "',
             " . $this->stock . ",
@@ -68,14 +68,14 @@ class ProductoModelo extends ModeloBase {
             '" . $this->detalle . "', stock = 
             " . $this->stock . ", precio_venta =
             " . $this->precio . " where idproducto =
-            " . $this->idproducto . ";";
+            '" . $this->idproducto . "';";
         $flagPro = $this->db()->query($query);
         return $flagPro;
     }
 
     //Metodo para buscar el producto filtrado por identificador de producto
     public function buscarProductoModelo($codigo) {
-        $sql = "SELECT * from producto where idproducto =$codigo;";
+        $sql = "SELECT * from producto where idproducto ='$codigo';";
         $resultSetProducto = $this->ejecutarSql($sql);
         return $resultSetProducto;
     }
