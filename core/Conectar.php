@@ -9,7 +9,7 @@ class Conectar{
     private $driver,$host,$user,$pass,$database,$charset; 
     
     public function __construct(){
-        $db_cfg = require_once 'config/baseDeDatos.php';
+        require 'config/baseDeDatos.php';
         $this->driver = $db_cfg["driver"];
         $this->host = $db_cfg["host"];
         $this->user = $db_cfg["user"];

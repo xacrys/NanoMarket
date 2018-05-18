@@ -1,6 +1,6 @@
 <?php
 
-return array(
+$db_cfg = array(
     "driver"    =>"mysql",
     "host"      =>"localhost",
     "user"      =>"root",
@@ -8,6 +8,6 @@ return array(
     "database"  =>"nanomarket",
     "charset"   =>"utf8",
 );
-
+?>
 
 

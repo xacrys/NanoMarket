@@ -2,37 +2,24 @@
 
 class VentaControlador extends ControladorBase {
 
-
+    // Variables para determinar la accion a realizar por el controlador y el resultado
     private $accionC;
     private $resultadoC;
 
     public function __construct() {
         parent::__construct();
         $this->accionC = '';
-        $this->productoBuscado = '';
         $this->resultadoC = false;
     }
 
     // acción por default
     public function index(){
-      // echo'index controlador';
-        $producto = new VentaModelo();        
-        $this->productoBuscado = $producto->buscarProducto();
-        //$categoriaModelo= new CategoriaModelo();
-        //$this->listaCategorias=$categoriaModelo->obtenerCategoria();
-        $this->view("venta", array("productoBuscado" => $this->productoBuscado));
-       // $this->view("Venta", array("Venta" => ""));
+        $productoModelo = new ProductoModelo();
+        $this->listaProductos = $productoModelo->getAll();
+        $this->view("Venta", array("listaProductos" => $this->listaProductos));        
     }
 
-  public function nuevo(){
-        $this->flagNuevo = false;
-        $catModelo= new CategoriaModelo();
-        $this->listaCategorias=$catModelo->obtenerCategoria();
-        $this->view("Producto", array("flagNuevo"=>$this->flagNuevo,"listaCategorias" => $this->listaCategorias));
-       
-    }
-
-  // Buscar Cliente
+    // Buscar Cliente
     public function buscarcli(){
         echo $_POST["idcliente"]."/";
         if(isset($_POST["idcliente"])){
@@ -49,22 +36,133 @@ class VentaControlador extends ControladorBase {
         }
        
     }
-
-    public function valores(){
-      //echo $_POST["idproducto"]."/";
-        if(isset($_POST["idproducto"])){
-            $idproducto = (int)$_POST["idproducto"];
-
+    public function buscarPro(){
+        echo $_POST["codigo"]."/";
+        if(isset($_POST["codigo"])){
+            $codigo = $_POST["codigo"];
+        
             //set new Cliente
+            $producto = new VentaModelo();        
+            $productoBuscado = $producto->buscarProducto($codigo);
+
+                       
+            //Cargamos la vista Cliente y enviar resultados
+            $this->view("venta", array("productoBuscado"=>$productoBuscado));
+
+        }
+       
+    }
+
+    // Registrar nueva Venta (Venta y Venta Detalle)
+    public function crear() {
+        
+        //json_decode — Decodifica un string de JSON
+        $myArray = isset($_POST['dvArray']) ? json_decode($_POST['dvArray']) : false;        
+
+        //Get arreglo DetalleVenta
+        if ($myArray) {
+            
+            //Get sesion User
+            $usuario=new UsuarioModelo();
+            $usuario->set_nombre('admin');
+            $unUsuario = $usuario->getBy('nombre', $usuario->get_nombre());
+            //Destruir el objeto
+            unset($usuario);
+
+            $cont = 0;
+            //Recorrer y recuperar valores de un objeto JSON con foreach
+            foreach($myArray as $obj){
+                if ($cont==0) {
+                    $idcliente = $obj->idcliente;
+                    $forma_pago = $obj->forma_pago;
+                    $total_venta = $obj->total_venta;
+                    
+                    //set new Venta
+                    $venta = new VentaModelo();
+                    $venta->set_idcliente($idcliente);
+                    $venta->set_idusuario($unUsuario[0]->idusuario);
+                    $venta->set_forma_pago($forma_pago);
+                    $venta->set_total_venta($total_venta);                    
+                    $save = $venta->addVenta();
+                    if ($save) {
+                        $this->resultadoC = true;
+                        $idventa = $venta->get_idventa();                        
+                    } else {
+                        $this->resultadoC = false;
+                    }
+                    unset($venta);
+
+                } else {
+
+                    if ($this->resultadoC && isset($idventa)) {
+                        $idproducto = $obj->dvCodProducto;
+                        $precio = (float) $obj->dvPUnitario;
+                        $cantidad = (int) $obj->dvCantidad;
+                        $total = round($precio*$cantidad,2);
+
+                        $values[] = "('{$idventa}', '{$idproducto}', '{$cantidad}', '{$total}')";
+
+                        /*//set new DetalleVenta
+                        $dVenta = new DetalleVentaModelo();
+                        $dVenta->set_idventa($idventa);
+                        $dVenta->set_idproducto($idproducto);
+                        $dVenta->set_cantidad($cantidad);
+                        $dVenta->set_total($total);
+                        $save = $dVenta->addDetalleVenta();
+                        if (!$save) {
+                            $this->resultadoC = false;
+                        }
+                        unset($dVenta);*/
+
+                        // Actualizar PRODUCTO
+                        //set new Producto
+                        $producto = new ProductoModelo();
+                        $unProducto= $producto->buscarProductoModelo($idproducto);
+
+                        $producto->setIdproducto($unProducto[0]->idproducto);
+                        $producto->setIdcategoria($unProducto[0]->idcategoria);
+                        $producto->setDetalle($unProducto[0]->detalle);
+                        $producto->setPrecio($unProducto[0]->precio_venta);
+                        $producto->setStock((int) ($unProducto[0]->stock - $cantidad));
+                        $save = $producto->actualizar();
+                        if (!$save) {
+                            $this->resultadoC = false;
+                        }
+                        unset($producto);
+                    }
+                }
+                $cont++;
+            }
+
+            if (isset($values)) {
+                //set new DetalleVenta
+                $dVenta = new DetalleVentaModelo();
+                $save = $dVenta->addDetalleVentaArray($values);
+                /*if (!$save) {
+                    $this->resultadoC = false;
+                }*/
+                unset($dVenta);      
+            }
+
+            echo $save; //Este mensaje devolverá a la llamada AJAX            
+
+        } else {
+            echo "false";
+        }                
+    }
+    
+    public function getProducto(){
+        if(isset($_POST["idproducto"])){
+            $idproducto = $_POST["idproducto"];
+            
+            //set new Producto
             $producto = new ProductoModelo();
-            $productoBuscado = $producto->buscarProducto($idproducto);            
+            $productoBuscado = $producto->buscarProductoModelo($idproducto);            
             
             //$this->accionC = "buscar";
-
             //Si existen resultados
             if(isset($productoBuscado) && isset($productoBuscado[0]->idproducto) && count($productoBuscado)>=1) {
                 $this->resultadoC = true;
-
                 //$arr = array();               
                 $json = "{";
                 foreach ($productoBuscado[0] as $id_assoc => $valor) {
@@ -87,98 +185,6 @@ class VentaControlador extends ControladorBase {
                 echo json_encode($json); //Enviar respuesta en formato JSON.
             }
         }
-    }
-
-
-
-    // Crear nuevo Cliente
-
-     // Crear nuevo Producto
-     public function crear() {
-        
-        if(isset($_POST["categoria"])){    
-           
-            
-            $idcliente = $_POST["idcliente"];
-            $idusuario = $_SESSION['user'];
-            $forma_pago = $_POST["selectTipo"];
-           // $fecha_hora = date()      
-            $total_venta = document.getElementById(x);              
-           
-           // //set new Cliente
-            //$producto = new ProductoModelo();
-
-            //$producto->setIdproducto($codigo);
-            //$producto->setIdcategoria($categoria);
-            //$producto->setDetalle($detalle);
-            //$producto->setPrecio($precio); 
-            //$producto->setStock($stock);  
-            //$save = $producto->guardar();
-            if ($save) {
-               $this->resultadoP = true;
-           }  
-        }
-        $this->view("Producto", array("resultadoP"=>$this->resultadoP));
-      
-       
-    }
- 
-
-    // Eliminar Cliente
-    public function borrar() {
-//        if(isset($_POST["idcliente"])){
-//            $idcliente=$_POST["idcliente"];            
-//            $cliente = new ClienteModelo();
-//            $cliente->deleteBy('idcliente',$idcliente);
-//            $this->redirect();
-//        }
-    }
-
-    // Buscar Cliente
-    public function buscar() {
-//        if(isset($_POST["idcliente"])){
-//            $idcliente = $_POST["idcliente"];
-//
-//            //set new Cliente
-//            $cliente = new ClienteModelo();        
-//            $cliente->set_idcliente($idcliente);
-//            $unCliente = $cliente->find();
-//
-//            //Cargamos la vista Cliente y enviar resultados
-//            $this->view("Cliente", array("unCliente"=>$unCliente));
-//        }
-    }
-
-    // Modificar Cliente
-    public function actualizar() {
-//        if(isset($_POST["idcliente"])){
-//            $idcliente = $_POST["idcliente"];
-//            $nombre = $_POST["nombre"];
-//            $apellido = $_POST["apellido"];
-//            $telefono = $_POST["telefono"];
-//            $celular = $_POST["celular"];
-//            $email = $_POST["email"];
-//            $direccion = $_POST["direccion"];
-//            $tipo_cliente = $_POST["tipo_cliente"];
-//            
-//            //set new Cliente
-//            $cliente = new ClienteModelo();
-//            $cliente->set_idcliente($idcliente);
-//            $cliente->set_nombre($nombre);
-//            $cliente->set_apellido($apellido);
-//            $cliente->set_telefono($telefono);
-//            $cliente->set_celular($celular);
-//            $cliente->set_email($email);
-//            $cliente->set_direccion($direccion);
-//            $cliente->set_tipo_cliente($tipo_cliente);
-//
-//            $cliente->updateCliente();
-//            $unCliente = $cliente->find();
-//
-//            //Cargamos la vista Cliente y enviar resultados
-//            $this->view("Cliente", array("unCliente"=>$unCliente));
-//        }
-//    }
     }
 
 }

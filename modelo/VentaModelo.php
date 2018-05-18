@@ -1,13 +1,12 @@
 <?php
 class VentaModelo extends ModeloBase {
-    private $idcliente;
-    private $nombre;
-    private $apellido;
 
+    //Campos de la tabla VENTA
+    private $idventa, $idcliente, $idusuario, $forma_pago, $fecha_hora, $total_venta;
 
     // Constructor
     public function __construct() {
-        $tabla="cliente";
+        $tabla="venta";
         parent::__construct($tabla);        
     }
 
@@ -17,81 +16,59 @@ class VentaModelo extends ModeloBase {
     }
 
     // getters
+    public function get_idventa() {
+        return $this->idventa;
+    }
     public function get_idcliente() {
         return $this->idcliente;
     }
-    public function get_nombre() {
-        return $this->nombre;
+    public function get_idusuario() {
+        return $this->idusuario;
     }
-    public function get_apellido() {
-        return $this->apellido;
+    public function get_forma_pago() {
+        return $this->forma_pago;
     }
-   
-    
+    public function get_fecha_hora() {
+        return $this->fecha_hora;
+    }
+    public function get_total_venta() {
+        return $this->total_venta;
+    }
+       
     //setters
+    public function set_idventa($value) {
+        $this->idventa = $value;
+    }
     public function set_idcliente($value) {
         $this->idcliente = $value;
     }
-    public function set_nombre($value) {
-        $this->nombre = $value;
+    public function set_idusuario($value) {
+        $this->idusuario = $value;
     }
-    public function set_apellido($value) {
-        $this->apellido = $value;
+    public function set_forma_pago($value) {
+        $this->forma_pago = $value;
     }
-   
+    public function set_fecha_hora($value) {
+        $this->fecha_hora = $value;
+    }
+    public function set_total_venta($value) {
+        $this->total_venta = $value;
+    }       
 
-    // Buscar un Cliente Activo según idcliente
-    public function find() {        
-        $sql = "SELECT idcliente, nombre, apellido from cliente where idcliente = '$this->idcliente' and activo=1;";
-        $resultSetCliente = $this->ejecutarSql($sql);   
-        echo "puto";    
-       
-        return $resultSetCliente;
-    }
-
-    public function buscarProducto() {
-        //echo "modelo";
-        $sql = "SELECT * from producto";
-        $resultSetCliente = $this->ejecutarSql($sql);
-        return $resultSetCliente;
-    }
-
-      // Agregar / Insertar un cliente 
-    public function addCliente() {        
-        $sql = "INSERT INTO cliente (idcliente,nombre,apellido,telefono,celular,email,direccion,tipo_cliente) 
+    // Agregar / Registrar una Venta
+    public function addVenta() {        
+        $sql = "INSERT INTO Venta (idcliente,idusuario,forma_pago,total_venta) 
                 values (
                     '".$this->idcliente."',
-                    '".$this->nombre."',
-                    '".$this->apellido."',
-                    '".$this->telefono."',
-                    '".$this->celular."',
-                    '".$this->email."',
-                    '".$this->direccion."',
-                    '".$this->tipo_cliente."');";      
+                    '".$this->idusuario."',
+                    '".$this->forma_pago."',
+                    ".$this->total_venta.");";
         $save = $this->db()->query($sql);
+        
+        //Devuelve el id autogenerado que se utilizó en la última consulta
+        $this->idventa = $this->db()->insert_id;
+
         return $save;
-    }
-
-    // Modificar / Actualizar un cliente 
-    public function updateCliente() {
-        $sql = "UPDATE cliente set nombre='$this->nombre',apellido='$this->apellido',telefono='$this->telefono',celular='$this->celular',email='$this->email', 
-                direccion='$this->direccion',tipo_cliente='$this->tipo_cliente',valor_credito='$this->valor_credito' 
-                where idcliente = '$this->idcliente';";        
-        $this->db()->query($sql);
-
-        //Obtiene el número de filas afectadas en la última operación MySQL
-        if ($this->db()->affected_rows > 0) {
-            $update = true;
-        } else {
-            $update = false;
-        }
-        return $update;
-    }
-
-    // Eliminar / Desactivar un cliente 
-    public function deleteCliente() {        
-        $sql = "update cliente set activo=0 where idcliente = '$this->idcliente';";
-        $this->db()->query($sql);        
     }
 }
 ?>
