@@ -63,9 +63,13 @@ class ProductoControlador extends ControladorBase {
         if (isset($_POST["codigo"])) {
             $codigo = (int) $_POST["codigo"];
             $producto = new ProductoModelo();
+            $encontrado = false; 
             $this->productoConsultado= $producto->buscarProductoModelo($codigo);
+            if($this->productoConsultado[0]){
+            $encontrado = true;   
+            }
             $this->listaCategoriasDos= $producto->obtenerCategoria();
-            $this->view("Producto", array("productoConsultado" => $this->productoConsultado, "listaCategoriasDos" => $this->listaCategoriasDos));
+            $this->view("Producto", array("productoConsultado" => $this->productoConsultado, "listaCategoriasDos" => $this->listaCategoriasDos, "encontrado"=>$encontrado));
         }
     }
    

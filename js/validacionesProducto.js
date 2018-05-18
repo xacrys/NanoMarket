@@ -1,9 +1,9 @@
 function validarBuscar(pagina, myForm, what){
     var valor = document.getElementById("inputCodigo").value;
     if(valor==null || valor.length == 0 || /^\s+$/.test(valor)){
-        $("#inputCodigo").parent().removeClass("form-group").addClass( "form-group has-error" );
+        $("#inputCodigo").parent().attr("class","form-group has-error");
         return false;
-       // $('#inputCodigo').removeClass('form-group');
+       
     }
     else{
         saltar(pagina,myForm);
