@@ -1,3 +1,45 @@
+function validarBuscar(pagina, myForm, what){
+    var valor = document.getElementById("inputCodigo").value;
+    if(valor==null || valor.length == 0 || /^\s+$/.test(valor)){
+        $("#inputCodigo").parent().removeClass("form-group").addClass( "form-group has-error" );
+        return false;
+       // $('#inputCodigo').removeClass('form-group');
+    }
+    else{
+        saltar(pagina,myForm);
+        return true;
+    }
+}
+
+function validarNuevo(pagina, myForm, what){
+    var codigo = document.getElementById("inputCodigo").value;
+    var detalle = document.getElementById("inputDetalle").value;
+    var precio = document.getElementById("inputPrecio").value;
+    var stock = document.getElementById("inputStock").value;
+
+    if(codigo==null || codigo.length == 0 || /^\s+$/.test(codigo)){
+        alert("Ingresar codigo para buscar");
+        return false;
+    } else
+    if(detalle==null || detalle.length == 0 || /^\s+$/.test(detalle)){
+        alert("Ingresar detalle para buscar");
+        return false;
+    } else
+    if(precio==null || precio.length == 0 || /^\s+$/.test(precio)){
+        alert("Ingresar precio para buscar");
+        return false;
+    } else
+    if(stock==null || stock.length == 0 || /^\s+$/.test(stock)){
+        alert("Ingresar stock para buscar");
+        return false;
+    }
+    else{
+        saltar(pagina,myForm);
+        return true;
+    }
+}
+
+
 function nuevoProducto(pagina,myForm){
     nuevo();
     document.getElementById(myForm).action=pagina;
