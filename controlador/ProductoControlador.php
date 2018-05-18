@@ -4,15 +4,26 @@ class ProductoControlador extends ControladorBase {
 
     private $listaCategorias;
     private $listaCategoriasDos;
+    private $productoConsultado;
     private $nuevoProducto;
     private $resultadoP;
     private $flagNuevo;
+<<<<<<< HEAD
     
     
     public function __construct() {
         $this->listaCategorias = '';
         $this->nuevoProducto = '';
         $this->listaCategoriasDos= '';
+=======
+
+    //cosntrutor de la clase
+    public function __construct() {
+        $this->listaCategorias = '';
+        $this->nuevoProducto = '';
+        $this->listaCategoriasDos = '';
+        $this->productoConsultado = '';
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
         $this->resultadoP = false;
         $this->flagNuevo = false;
         parent::__construct();
@@ -25,12 +36,17 @@ class ProductoControlador extends ControladorBase {
         $this->view("Producto", array("listaCategorias" => $this->listaCategorias));
         
     }
-
-    // Crear nuevo Producto
+   
+    // Registrar nuevo Producto
     public function guardar() {
+<<<<<<< HEAD
         
         if(isset($_POST["categoria"])){    
            
+=======
+        if (isset($_POST["categoria"])) {
+
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
             $codigo = $_POST["codigo"];
             $categoria = $_POST["categoria"];
             $detalle = $_POST["detalle"];
@@ -53,7 +69,12 @@ class ProductoControlador extends ControladorBase {
        
     }
     
+<<<<<<< HEAD
     public function nuevo(){
+=======
+    // Me permite ejecutar la pagina nueva enlistando las categorias
+    public function nuevo() {
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
         $this->flagNuevo = false;
         $catModelo= new CategoriaModelo();
         $this->listaCategorias=$catModelo->obtenerCategoria();
@@ -61,6 +82,7 @@ class ProductoControlador extends ControladorBase {
        
     }
 
+<<<<<<< HEAD
 
 
     // Buscar Cliente
@@ -76,11 +98,26 @@ class ProductoControlador extends ControladorBase {
             print_r( $this->listaCategoriasDos);
             //Cargamos la vista Cliente y enviar resultados
             $this->view("Producto", array("productoBuscado" => $productoBuscado, "listaCategoriasDos" => $this->listaCategoriasDos));
+=======
+    // Buscar Producto
+    public function buscarProducto() {
+        if (isset($_POST["codigo"])) {
+            $codigo = (int) $_POST["codigo"];
+            $producto = new ProductoModelo();
+            $encontrado = false; 
+            $this->productoConsultado= $producto->buscarProductoModelo($codigo);
+            if($this->productoConsultado[0]){
+            $encontrado = true;   
+            }
+            $this->listaCategoriasDos= $producto->obtenerCategoria();
+            $this->view("Producto", array("productoConsultado" => $this->productoConsultado, "listaCategoriasDos" => $this->listaCategoriasDos, "encontrado"=>$encontrado));
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
         }
     }
-
-    // Modificar Cliente
+   
+    // Modificar Producto
     public function actualizar() {
+<<<<<<< HEAD
 //        if(isset($_POST["idcliente"])){
 //            $idcliente = $_POST["idcliente"];
 //            $nombre = $_POST["nombre"];
@@ -109,6 +146,28 @@ class ProductoControlador extends ControladorBase {
 //            $this->view("Cliente", array("unCliente"=>$unCliente));
 //        }
 //    }
+=======
+        if (isset($_POST["categoria"])) {
+            
+            $codigo = $_POST["codigo"];
+            $categoria = $_POST["categoria"];
+            $detalle = $_POST["detalle"];
+            $precio = $_POST["precio"];
+            $stock = $_POST["stock"];
+            //set new Cliente
+            $producto = new ProductoModelo();
+            $producto->setIdproducto($codigo);
+            $producto->setIdcategoria($categoria);
+            $producto->setDetalle($detalle);
+            $producto->setPrecio($precio);
+            $producto->setStock($stock);
+            $save = $producto->actualizar();
+            if ($save) {
+                $this->resultadoA = true;
+            }
+        }
+        $this->view("Producto", array("resultadoA" => $this->resultadoA));
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
     }
 
 }

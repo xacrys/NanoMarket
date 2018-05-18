@@ -49,6 +49,7 @@ class ProductoModelo extends ModeloBase {
         $this->precio = $precio;
     }
 
+    //Metodo que inserta el registro en la base de datos
     public function guardar() {
         $query = "INSERT INTO producto (idproducto, idcategoria,detalle,stock,precio_venta) VALUES (
             " . $this->idproducto . ",
@@ -60,16 +61,33 @@ class ProductoModelo extends ModeloBase {
         $flagPro = $this->db()->query($query);
         return $flagPro;
     }
+<<<<<<< HEAD
+=======
+    //Metodo que modifica los datos del producto
+    public function actualizar() {
+        $query = "UPDATE producto set idcategoria =
+            " . $this->idcategoria . ", detalle =
+            '" . $this->detalle . "', stock = 
+            " . $this->stock . ", precio_venta =
+            " . $this->precio . " where idproducto =
+            " . $this->idproducto . ";";
+        $flagPro = $this->db()->query($query);
+        return $flagPro;
+    }
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
 
-    public function buscarProducto($codigo) {
-        $query = $this->db()->query("SELECT * FROM producto WHERE idproducto = $codigo");
-        if ($row = $query->fetch_object()) {
-            $resultSet[] = $row;
-        }
-        return $resultSet;
+    //Metodo para buscar el producto filtrado por identificador de producto
+    public function buscarProductoModelo($codigo) {
+        $sql = "SELECT * from producto where idproducto =$codigo;";
+        $resultSetProducto = $this->ejecutarSql($sql);
+        return $resultSetProducto;
     }
 
+<<<<<<< HEAD
     
+=======
+    //Metodo para enlistar las categorias
+>>>>>>> efc2d6afbd33073ea4b6ff3e65e3743d7e20ce8e
     public function obtenerCategoria() {
         $sql = "SELECT * from categoria where activo=1;";
         $resultSetCliente = $this->ejecutarSql($sql);
